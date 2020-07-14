@@ -229,6 +229,50 @@ var parisObject  = {
   }
 };
 
+var limaObject  = {
+  minimumHourlyCustomers: 2,
+  maximumHourlyCustomers: 16,
+  averageCookiesPerCustomer: 4.6,
+  hourlyCustomerCount: [],
+  hourlyCookieCount: [],
+  totalDailyCookieSales: 0,
+  calcRandomCustomers: function() {
+    var min = Math.ceil(this.minimumHourlyCustomers);
+    var max = Math.floor(this.maximumHourlyCustomers);
+    for (var k = 0; k < hourBuckets.length; k++) {
+      this.hourlyCustomerCount.push(Math.floor(Math.random() * (max - min +1)) + min);
+    }
+  },
+  calcHourlyCookieSales: function() {
+    for (var m = 0; m < hourBuckets.length; m++) {
+      this.hourlyCookieCount.push(Math.round(this.averageCookiesPerCustomer * this.hourlyCustomerCount[m]));
+    }
+  },
+  calcTotalDailyCount: function() {
+    for (var j = 0; j < hourBuckets.length; j++) {
+      this.totalDailyCookieSales += this.hourlyCookieCount[j];
+    }
+  },
+  printSalesData: function() {
+    for (var i = 0; i < hourBuckets.length; i++) {
+      var limaDisplayEL = document.getElementById('LimaSales');
+      var linePrintEL = document.createElement('li');
+      linePrintEL.textContent = hourBuckets[i] + ': ' + this.hourlyCookieCount[i] + ' cookies';
+      limaDisplayEL.appendChild(linePrintEL);
+    }
+    limaDisplayEL = document.getElementById('LimaSales');
+    linePrintEL = document.createElement('li');
+    linePrintEL.textContent = 'Total: ' + this.totalDailyCookieSales + ' cookies';
+    limaDisplayEL.appendChild(linePrintEL);
+  },
+  calculateAndRenderLocation: function() {
+    this.calcRandomCustomers();
+    this.calcHourlyCookieSales();
+    this.calcTotalDailyCount();
+    this.printSalesData();
+  }
+};
+
 //  *****  METHOD CALLS  *****
 
 seattleObject.calcRandomCustomers();
@@ -250,4 +294,6 @@ parisObject.calcRandomCustomers();
 parisObject.calcHourlyCookieSales();
 parisObject.calcTotalDailyCount();
 parisObject.printSalesData();
+
+limaObject.calculateAndRenderLocation();
 
