@@ -48,14 +48,18 @@ var seattleObject = {
   hourlyCustomerCount: [101,2,3,4,5,6,7,8,9,10,11,12,13,14],
   hourlyCookieCount: [121,2,3,4,5,6,7,8,9,10,11,12,13,14],
   totalDailyCookieSales: 110,
-  calcRandomCustomers: function(min,max) {
-    //future calcs
-    var customerCount = 23;
-    return customerCount;
+  calcRandomCustomers: function() {
+    //calculates a number of customers that come in for a given hour bucket
+    var min = Math.ceil(this.minimumHourlyCustomers);
+    var max = Math.floor(this.maximumHourlyCustomers);
+    var RandomCustomerCount = Math.floor(Math.random() * (max - min +1)) + min;
+    // The above three lines will return a random integer within the specified range, inclusive of both the min and max
+    // Thanks to MDN web docs for the help with it.  Info at:  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+    return RandomCustomerCount;
   },
   calcHourlyCookieSales: function(customers,avgCookieSalesPerCustomer) {
     //future calcs
-    var cookieCount = 9;
+    var cookieCount = this.averageCookiesPerCustomer * this.calcRandomCustomers()
     return cookieCount;
   },
   calcTotalDailyCount: function(ArrayOfSalesPerHour) {
