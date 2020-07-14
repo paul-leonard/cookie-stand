@@ -92,10 +92,11 @@ var seattleObject = {
   }
 };
 
-seattleObject.calcRandomCustomers();
-seattleObject.calcHourlyCookieSales();
-seattleObject.calcTotalDailyCount();
-seattleObject.printSalesData();
+// These method calls were here when I completed the first city (Seattle), but now they moved to a different section.
+// seattleObject.calcRandomCustomers();
+// seattleObject.calcHourlyCookieSales();
+// seattleObject.calcTotalDailyCount();
+// seattleObject.printSalesData();
 
 // console.log('hourBuckets', hourBuckets);
 // console.log('seattleObject', seattleObject);
@@ -105,4 +106,62 @@ seattleObject.printSalesData();
 
 // And then for other cities, it is the same and internal things can keep using 'this'
 // I bet we will learn a way tomorrow to put all of these objects... in a higher object?
+// All comments and sources removed, refer to the seattle object definition
 
+var tokyoObject = {
+  minimumHourlyCustomers: 3,
+  maximumHourlyCustomers: 24,
+  averageCookiesPerCustomer: 1.2,
+  hourlyCustomerCount: [],
+  hourlyCookieCount: [],
+  totalDailyCookieSales: 0,
+  calcRandomCustomers: function() {
+    var min = Math.ceil(this.minimumHourlyCustomers);
+    var max = Math.floor(this.maximumHourlyCustomers);
+    for (var k = 0; k < hourBuckets.length; k++) {
+      this.hourlyCustomerCount[k] = Math.floor(Math.random() * (max - min +1)) + min;
+    }
+    return;
+  },
+  calcHourlyCookieSales: function() {
+    for (var m = 0; m < hourBuckets.length; m++) {
+      this.hourlyCookieCount[m] = Math.round(this.averageCookiesPerCustomer * this.hourlyCustomerCount[m]);
+    }
+    return;
+  },
+  calcTotalDailyCount: function() {
+    for (var j = 0; j < hourBuckets.length; j++) {
+      this.totalDailyCookieSales += this.hourlyCookieCount[j];
+    }
+    return;
+  },
+  printSalesData: function() {
+    for (var i = 0; i<hourBuckets.length; i++) {
+      var tokyoDisplayEL = document.getElementById('TokyoSales');
+      var linePrintEL = document.createElement('li');
+      linePrintEL.textContent = hourBuckets[i] + ': ' + this.hourlyCookieCount[i] + ' cookies';
+      tokyoDisplayEL.appendChild(linePrintEL);
+    }
+    tokyoDisplayEL = document.getElementById('TokyoSales');
+    linePrintEL = document.createElement('li');
+    linePrintEL.textContent = 'Total: ' + this.totalDailyCookieSales + ' cookies';
+    tokyoDisplayEL.appendChild(linePrintEL);
+  }
+};
+
+
+
+//  *****  METHOD CALLS  *****
+
+seattleObject.calcRandomCustomers();
+seattleObject.calcHourlyCookieSales();
+seattleObject.calcTotalDailyCount();
+seattleObject.printSalesData();
+
+tokyoObject.calcRandomCustomers();
+tokyoObject.calcHourlyCookieSales();
+tokyoObject.calcTotalDailyCount();
+tokyoObject.printSalesData();
+
+
+// Do the methods (or in general functions) require a 'return;' at the end of the declaration/definition or can I delete them?
