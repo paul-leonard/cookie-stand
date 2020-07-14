@@ -45,33 +45,39 @@ var seattleObject = {
   minimumHourlyCustomers: 23,
   maximumHourlyCustomers: 65,
   averageCookiesPerCustomer: 6.3,
-  hourlyCustomerCount: [101,2,3,4,5,6,7,8,9,10,11,12,13,14],
-  hourlyCookieCount: [121,2,3,4,5,6,7,8,9,10,11,12,13,14],
-  totalDailyCookieSales: 110,
+  hourlyCustomerCount: [],
+  hourlyCookieCount: [],
+  totalDailyCookieSales: 0,
   calcRandomCustomers: function() {
-    //calculates a number of customers that come in for a given hour bucket
+    //calculates a number of customers that come in for a given hour bucket and fills array
     var min = Math.ceil(this.minimumHourlyCustomers);
     var max = Math.floor(this.maximumHourlyCustomers);
-    var RandomCustomerCount = Math.floor(Math.random() * (max - min +1)) + min;
+    for (var k = 0; k < hourBuckets.length; k++) {
+      this.hourlyCustomerCount[k] = Math.floor(Math.random() * (max - min +1)) + min;
+    }
     // The above three lines will return a random integer within the specified range, inclusive of both the min and max
     // Thanks to MDN web docs for the help with it.  Info at:  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-    return RandomCustomerCount;
+    return;
   },
-  calcHourlyCookieSales: function(customers,avgCookieSalesPerCustomer) {
-    //future calcs
-    var cookieCount = this.averageCookiesPerCustomer * this.calcRandomCustomers()
-    return cookieCount;
+  calcHourlyCookieSales: function() {
+    for (var m = 0; m < hourBuckets.length; m++) {
+      this.hourlyCookieCount[m] = Math.round(this.averageCookiesPerCustomer * this.hourlyCustomerCount[m]);
+      // console.log('avg type', typeof(this.averageCookiesPerCustomer));
+      // console.log('this.hourlyCookieCount[m] type', typeof(this.hourlyCookieCount[m]));
+      // console.log('type of randomCustomers', typeof(this.calcRandomCustomers[m]));  <-- I called the method instead of the property... oops!
+    }
+    // Thanks again to MDN for help with the rounding function: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/round
+    return;
   },
-  calcTotalDailyCount: function(ArrayOfSalesPerHour) {
-    //future calcs
-    var sumOfHourlySales = 1000000;
-    return sumOfHourlySales;
+  calcTotalDailyCount: function() {
+    for (var j = 0; j < hourBuckets.length; j++) {
+      this.totalDailyCookieSales += this.hourlyCookieCount[j];
+    }
+    return;
   },
   printSalesData: function() {
-    console.log('inside printSalesData');
-
     //Print out the hourly cookie sales
-    for (var i=0; i<hourBuckets.length; i++) {
+    for (var i = 0; i<hourBuckets.length; i++) {
       var seattleDisplayEL = document.getElementById('SeattleSales');
       var linePrintEL = document.createElement('li');
       linePrintEL.textContent = hourBuckets[i] + ': ' + this.hourlyCookieCount[i] + ' cookies';
@@ -83,20 +89,20 @@ var seattleObject = {
     linePrintEL = document.createElement('li');
     linePrintEL.textContent = 'Total: ' + this.totalDailyCookieSales + ' cookies';
     seattleDisplayEL.appendChild(linePrintEL);
-
-    // this.calcRandomCustomers(this.minimumHourlyCustomers,this.maximumHourlyCustomers);
-
-
-      // this.calcTotalDailyCount(hourlyCookieCount);
   }
 };
 
+seattleObject.calcRandomCustomers();
+seattleObject.calcHourlyCookieSales();
+seattleObject.calcTotalDailyCount();
 seattleObject.printSalesData();
 
+// console.log('hourBuckets', hourBuckets);
+// console.log('seattleObject', seattleObject);
+// console.log('seattleObject.CalcRandomCustomers', seattleObject.CalcRandomCustomers);
+// console.log('seattleObject.CalcHourlyCookieSales', seattleObject.CalcHourlyCookieSales);
+// console.log('seattleObject.CalcTotalDailyCount', seattleObject.CalcTotalDailyCount);
 
+// And then for other cities, it is the same and internal things can keep using 'this'
+// I bet we will learn a way tomorrow to put all of these objects... in a higher object?
 
-console.log(hourBuckets);
-console.log(seattleObject);
-console.log(seattleObject.CalcRandomCustomers);
-console.log(seattleObject.CalcHourlyCookieSales);
-console.log(seattleObject.CalcTotalDailyCount);
