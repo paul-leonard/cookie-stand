@@ -37,7 +37,9 @@ Calculate Total Daily Sales by summing all hourly sales.
 */
 
 //  *****  GLOBAL VARIABLES  *****
+
 var hourBuckets = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm'];
+
 
 //  *****  DEFINE ALL OF THE OBJECTS  *****
 
@@ -92,6 +94,8 @@ var seattleObject = {
   }
 };
 
+//Thanks to Skylar for the hint to pay attention to types by adding the suffix "EL" to anything that is an HTML element.
+
 // These method calls were here when I completed the first city (Seattle), but now they moved to a different section.
 // seattleObject.calcRandomCustomers();
 // seattleObject.calcHourlyCookieSales();
@@ -100,9 +104,9 @@ var seattleObject = {
 
 // console.log('hourBuckets', hourBuckets);
 // console.log('seattleObject', seattleObject);
-// console.log('seattleObject.CalcRandomCustomers', seattleObject.CalcRandomCustomers);
-// console.log('seattleObject.CalcHourlyCookieSales', seattleObject.CalcHourlyCookieSales);
-// console.log('seattleObject.CalcTotalDailyCount', seattleObject.CalcTotalDailyCount);
+// console.log('seattleObject.calcRandomCustomers', seattleObject.calcRandomCustomers);
+// console.log('seattleObject.calcHourlyCookieSales', seattleObject.calcHourlyCookieSales);
+// console.log('seattleObject.calcTotalDailyCount', seattleObject.calcTotalDailyCount);
 
 // And then for other cities, it is the same and internal things can keep using 'this'
 // I bet we will learn a way tomorrow to put all of these objects... in a higher object?
@@ -136,7 +140,7 @@ var tokyoObject = {
     return;
   },
   printSalesData: function() {
-    for (var i = 0; i<hourBuckets.length; i++) {
+    for (var i = 0; i < hourBuckets.length; i++) {
       var tokyoDisplayEL = document.getElementById('TokyoSales');
       var linePrintEL = document.createElement('li');
       linePrintEL.textContent = hourBuckets[i] + ': ' + this.hourlyCookieCount[i] + ' cookies';
@@ -149,7 +153,125 @@ var tokyoObject = {
   }
 };
 
+var dubaiObject = {
+  minimumHourlyCustomers: 11,
+  maximumHourlyCustomers: 38,
+  averageCookiesPerCustomer: 3.7,
+  hourlyCustomerCount: [],
+  hourlyCookieCount: [],
+  totalDailyCookieSales: 0,
+  calcRandomCustomers: function() {
+    for (var k = 0; k < hourBuckets.length; k++) {
+      this.hourlyCustomerCount[k] = Math.floor(Math.random() * (Math.floor(this.maximumHourlyCustomers)-Math.ceil(this.minimumHourlyCustomers)+1))+Math.ceil(this.minimumHourlyCustomers);
+    }
+  },
+  calcHourlyCookieSales: function() {
+    for (var m = 0; m < hourBuckets.length; m++) {
+      this.hourlyCookieCount[m] = Math.round(this.averageCookiesPerCustomer * this.hourlyCustomerCount[m]);
+    }
+  },
+  calcTotalDailyCount: function() {
+    for (var j = 0; j < hourBuckets.length; j++) {
+      this.totalDailyCookieSales += this.hourlyCookieCount[j];
+    }
+  },
+  printSalesData: function() {
+    for (var i = 0; i < hourBuckets.length; i++) {
+      var dubaiDisplayEL = document.getElementById('DubaiSales');
+      var linePrintEL = document.createElement('li');
+      linePrintEL.textContent = hourBuckets[i] + ': ' + this.hourlyCookieCount[i] + ' cookies';
+      dubaiDisplayEL.appendChild(linePrintEL);
+    }
+    dubaiDisplayEL = document.getElementById('DubaiSales');
+    linePrintEL = document.createElement('li');
+    linePrintEL.textContent = 'Total: ' + this.totalDailyCookieSales + ' cookies';
+    dubaiDisplayEL.appendChild(linePrintEL);
+  }
+};
 
+var parisObject  = {
+  minimumHourlyCustomers: 20,
+  maximumHourlyCustomers: 38,
+  averageCookiesPerCustomer: 2.3,
+  hourlyCustomerCount: [],
+  hourlyCookieCount: [],
+  totalDailyCookieSales: 0,
+  calcRandomCustomers: function() {
+    var min = Math.ceil(this.minimumHourlyCustomers);
+    var max = Math.floor(this.maximumHourlyCustomers);
+    for (var k = 0; k < hourBuckets.length; k++) {
+    //this.hourlyCustomerCount[k] = Math.floor(Math.random() * (max - min +1)) + min;
+    //Trying out the .push function (https://www.w3schools.com/jsref/jsref_push.asp)
+      this.hourlyCustomerCount.push(Math.floor(Math.random() * (max - min +1)) + min);
+    }
+  },
+  calcHourlyCookieSales: function() {
+    for (var m = 0; m < hourBuckets.length; m++) {
+      this.hourlyCookieCount.push(Math.round(this.averageCookiesPerCustomer * this.hourlyCustomerCount[m]));
+    }
+  },
+  calcTotalDailyCount: function() {
+    for (var j = 0; j < hourBuckets.length; j++) {
+      this.totalDailyCookieSales += this.hourlyCookieCount[j];
+    }
+  },
+  printSalesData: function() {
+    for (var i = 0; i < hourBuckets.length; i++) {
+      var parisDisplayEL = document.getElementById('ParisSales');
+      var linePrintEL = document.createElement('li');
+      linePrintEL.textContent = hourBuckets[i] + ': ' + this.hourlyCookieCount[i] + ' cookies';
+      parisDisplayEL.appendChild(linePrintEL);
+    }
+    parisDisplayEL = document.getElementById('ParisSales');
+    linePrintEL = document.createElement('li');
+    linePrintEL.textContent = 'Total: ' + this.totalDailyCookieSales + ' cookies';
+    parisDisplayEL.appendChild(linePrintEL);
+  }
+};
+
+var limaObject  = {
+  minimumHourlyCustomers: 2,
+  maximumHourlyCustomers: 16,
+  averageCookiesPerCustomer: 4.6,
+  hourlyCustomerCount: [],
+  hourlyCookieCount: [],
+  totalDailyCookieSales: 0,
+  calcRandomCustomers: function() {
+    var min = Math.ceil(this.minimumHourlyCustomers);
+    var max = Math.floor(this.maximumHourlyCustomers);
+    for (var k = 0; k < hourBuckets.length; k++) {
+      this.hourlyCustomerCount.push(Math.floor(Math.random() * (max - min +1)) + min);
+    }
+  },
+  calcHourlyCookieSales: function() {
+    for (var m = 0; m < hourBuckets.length; m++) {
+      this.hourlyCookieCount.push(Math.round(this.averageCookiesPerCustomer * this.hourlyCustomerCount[m]));
+    }
+  },
+  calcTotalDailyCount: function() {
+    for (var j = 0; j < hourBuckets.length; j++) {
+      this.totalDailyCookieSales += this.hourlyCookieCount[j];
+    }
+  },
+  printSalesData: function() {
+    for (var i = 0; i < hourBuckets.length; i++) {
+      var limaDisplayEL = document.getElementById('LimaSales');
+      var linePrintEL = document.createElement('li');
+      linePrintEL.textContent = hourBuckets[i] + ': ' + this.hourlyCookieCount[i] + ' cookies';
+      limaDisplayEL.appendChild(linePrintEL);
+    }
+    limaDisplayEL = document.getElementById('LimaSales');
+    linePrintEL = document.createElement('li');
+    linePrintEL.textContent = 'Total: ' + this.totalDailyCookieSales + ' cookies';
+    limaDisplayEL.appendChild(linePrintEL);
+  },
+  calculateAndRenderLocation: function() {
+    this.calcRandomCustomers();
+    this.calcHourlyCookieSales();
+    this.calcTotalDailyCount();
+    this.printSalesData();
+  }
+};
 
 //  *****  METHOD CALLS  *****
 
@@ -163,5 +285,15 @@ tokyoObject.calcHourlyCookieSales();
 tokyoObject.calcTotalDailyCount();
 tokyoObject.printSalesData();
 
+dubaiObject.calcRandomCustomers();
+dubaiObject.calcHourlyCookieSales();
+dubaiObject.calcTotalDailyCount();
+dubaiObject.printSalesData();
 
-// Do the methods (or in general functions) require a 'return;' at the end of the declaration/definition or can I delete them?
+parisObject.calcRandomCustomers();
+parisObject.calcHourlyCookieSales();
+parisObject.calcTotalDailyCount();
+parisObject.printSalesData();
+
+limaObject.calculateAndRenderLocation();
+
