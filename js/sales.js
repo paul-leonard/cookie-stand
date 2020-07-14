@@ -37,7 +37,9 @@ Calculate Total Daily Sales by summing all hourly sales.
 */
 
 //  *****  GLOBAL VARIABLES  *****
+
 var hourBuckets = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm'];
+
 
 //  *****  DEFINE ALL OF THE OBJECTS  *****
 
@@ -92,6 +94,8 @@ var seattleObject = {
   }
 };
 
+//Thanks to Skylar for the hint to pay attention to types by adding the suffix "EL" to anything that is an HTML element.
+
 // These method calls were here when I completed the first city (Seattle), but now they moved to a different section.
 // seattleObject.calcRandomCustomers();
 // seattleObject.calcHourlyCookieSales();
@@ -136,7 +140,7 @@ var tokyoObject = {
     return;
   },
   printSalesData: function() {
-    for (var i = 0; i<hourBuckets.length; i++) {
+    for (var i = 0; i < hourBuckets.length; i++) {
       var tokyoDisplayEL = document.getElementById('TokyoSales');
       var linePrintEL = document.createElement('li');
       linePrintEL.textContent = hourBuckets[i] + ': ' + this.hourlyCookieCount[i] + ' cookies';
@@ -146,6 +150,42 @@ var tokyoObject = {
     linePrintEL = document.createElement('li');
     linePrintEL.textContent = 'Total: ' + this.totalDailyCookieSales + ' cookies';
     tokyoDisplayEL.appendChild(linePrintEL);
+  }
+};
+
+var dubaiObject = {
+  minimumHourlyCustomers: 11,
+  maximumHourlyCustomers: 38,
+  averageCookiesPerCustomer: 3.7,
+  hourlyCustomerCount: [],
+  hourlyCookieCount: [],
+  totalDailyCookieSales: 0,
+  calcRandomCustomers: function() {
+    for (var k = 0; k < hourBuckets.length; k++) {
+      this.hourlyCustomerCount[k] = Math.floor(Math.random() * (Math.floor(this.maximumHourlyCustomers)-Math.ceil(this.minimumHourlyCustomers)+1))+Math.ceil(this.minimumHourlyCustomers);
+    }
+  },
+  calcHourlyCookieSales: function() {
+    for (var m = 0; m < hourBuckets.length; m++) {
+      this.hourlyCookieCount[m] = Math.round(this.averageCookiesPerCustomer * this.hourlyCustomerCount[m]);
+    }
+  },
+  calcTotalDailyCount: function() {
+    for (var j = 0; j < hourBuckets.length; j++) {
+      this.totalDailyCookieSales += this.hourlyCookieCount[j];
+    }
+  },
+  printSalesData: function() {
+    for (var i = 0; i < hourBuckets.length; i++) {
+      var dubaiDisplayEL = document.getElementById('DubaiSales');
+      var linePrintEL = document.createElement('li');
+      linePrintEL.textContent = hourBuckets[i] + ': ' + this.hourlyCookieCount[i] + ' cookies';
+      dubaiDisplayEL.appendChild(linePrintEL);
+    }
+    dubaiDisplayEL = document.getElementById('DubaiSales');
+    linePrintEL = document.createElement('li');
+    linePrintEL.textContent = 'Total: ' + this.totalDailyCookieSales + ' cookies';
+    dubaiDisplayEL.appendChild(linePrintEL);
   }
 };
 
@@ -163,5 +203,8 @@ tokyoObject.calcHourlyCookieSales();
 tokyoObject.calcTotalDailyCount();
 tokyoObject.printSalesData();
 
+dubaiObject.calcRandomCustomers();
+dubaiObject.calcHourlyCookieSales();
+dubaiObject.calcTotalDailyCount();
+dubaiObject.printSalesData();
 
-// Do the methods (or in general functions) require a 'return;' at the end of the declaration/definition or can I delete them?
