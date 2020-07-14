@@ -104,9 +104,9 @@ var seattleObject = {
 
 // console.log('hourBuckets', hourBuckets);
 // console.log('seattleObject', seattleObject);
-// console.log('seattleObject.CalcRandomCustomers', seattleObject.CalcRandomCustomers);
-// console.log('seattleObject.CalcHourlyCookieSales', seattleObject.CalcHourlyCookieSales);
-// console.log('seattleObject.CalcTotalDailyCount', seattleObject.CalcTotalDailyCount);
+// console.log('seattleObject.calcRandomCustomers', seattleObject.calcRandomCustomers);
+// console.log('seattleObject.calcHourlyCookieSales', seattleObject.calcHourlyCookieSales);
+// console.log('seattleObject.calcTotalDailyCount', seattleObject.calcTotalDailyCount);
 
 // And then for other cities, it is the same and internal things can keep using 'this'
 // I bet we will learn a way tomorrow to put all of these objects... in a higher object?
@@ -189,7 +189,45 @@ var dubaiObject = {
   }
 };
 
-
+var parisObject  = {
+  minimumHourlyCustomers: 20,
+  maximumHourlyCustomers: 38,
+  averageCookiesPerCustomer: 2.3,
+  hourlyCustomerCount: [],
+  hourlyCookieCount: [],
+  totalDailyCookieSales: 0,
+  calcRandomCustomers: function() {
+    var min = Math.ceil(this.minimumHourlyCustomers);
+    var max = Math.floor(this.maximumHourlyCustomers);
+    for (var k = 0; k < hourBuckets.length; k++) {
+    //this.hourlyCustomerCount[k] = Math.floor(Math.random() * (max - min +1)) + min;
+    //Trying out the .push function (https://www.w3schools.com/jsref/jsref_push.asp)
+      this.hourlyCustomerCount.push(Math.floor(Math.random() * (max - min +1)) + min);
+    }
+  },
+  calcHourlyCookieSales: function() {
+    for (var m = 0; m < hourBuckets.length; m++) {
+      this.hourlyCookieCount.push(Math.round(this.averageCookiesPerCustomer * this.hourlyCustomerCount[m]));
+    }
+  },
+  calcTotalDailyCount: function() {
+    for (var j = 0; j < hourBuckets.length; j++) {
+      this.totalDailyCookieSales += this.hourlyCookieCount[j];
+    }
+  },
+  printSalesData: function() {
+    for (var i = 0; i < hourBuckets.length; i++) {
+      var parisDisplayEL = document.getElementById('ParisSales');
+      var linePrintEL = document.createElement('li');
+      linePrintEL.textContent = hourBuckets[i] + ': ' + this.hourlyCookieCount[i] + ' cookies';
+      parisDisplayEL.appendChild(linePrintEL);
+    }
+    parisDisplayEL = document.getElementById('ParisSales');
+    linePrintEL = document.createElement('li');
+    linePrintEL.textContent = 'Total: ' + this.totalDailyCookieSales + ' cookies';
+    parisDisplayEL.appendChild(linePrintEL);
+  }
+};
 
 //  *****  METHOD CALLS  *****
 
@@ -207,4 +245,9 @@ dubaiObject.calcRandomCustomers();
 dubaiObject.calcHourlyCookieSales();
 dubaiObject.calcTotalDailyCount();
 dubaiObject.printSalesData();
+
+parisObject.calcRandomCustomers();
+parisObject.calcHourlyCookieSales();
+parisObject.calcTotalDailyCount();
+parisObject.printSalesData();
 
