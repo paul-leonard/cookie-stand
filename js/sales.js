@@ -36,63 +36,62 @@ Calculate Hourly Cookie Sales will take the random number of customers and multi
 Calculate Total Daily Sales by summing all hourly sales.
 */
 
-//  *****  GLOBAL VARIABLES  *****
-
-var hourBuckets = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm'];
 
 
-//  *****  DEFINE ALL OF THE OBJECTS  *****
 
-var seattleObject = {
-  minimumHourlyCustomers: 23,
-  maximumHourlyCustomers: 65,
-  averageCookiesPerCustomer: 6.3,
-  hourlyCustomerCount: [],
-  hourlyCookieCount: [],
-  totalDailyCookieSales: 0,
-  calcRandomCustomers: function() {
-    //calculates a number of customers that come in for a given hour bucket and fills array
-    var min = Math.ceil(this.minimumHourlyCustomers);
-    var max = Math.floor(this.maximumHourlyCustomers);
-    for (var k = 0; k < hourBuckets.length; k++) {
-      this.hourlyCustomerCount[k] = Math.floor(Math.random() * (max - min +1)) + min;
-    }
-    // The above three lines will return a random integer within the specified range, inclusive of both the min and max
-    // Thanks to MDN web docs for the help with it.  Info at:  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-    return;
-  },
-  calcHourlyCookieSales: function() {
-    for (var m = 0; m < hourBuckets.length; m++) {
-      this.hourlyCookieCount[m] = Math.round(this.averageCookiesPerCustomer * this.hourlyCustomerCount[m]);
-      // console.log('avg type', typeof(this.averageCookiesPerCustomer));
-      // console.log('this.hourlyCookieCount[m] type', typeof(this.hourlyCookieCount[m]));
-      // console.log('type of randomCustomers', typeof(this.calcRandomCustomers[m]));  <-- I called the method instead of the property... oops!
-    }
-    // Thanks again to MDN for help with the rounding function: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/round
-    return;
-  },
-  calcTotalDailyCount: function() {
-    for (var j = 0; j < hourBuckets.length; j++) {
-      this.totalDailyCookieSales += this.hourlyCookieCount[j];
-    }
-    return;
-  },
-  printSalesData: function() {
-    //Print out the hourly cookie sales
-    for (var i = 0; i<hourBuckets.length; i++) {
-      var seattleDisplayEL = document.getElementById('SeattleSales');
-      var linePrintEL = document.createElement('li');
-      linePrintEL.textContent = hourBuckets[i] + ': ' + this.hourlyCookieCount[i] + ' cookies';
-      seattleDisplayEL.appendChild(linePrintEL);
-    }
 
-    //Display total cookies for the location
-    seattleDisplayEL = document.getElementById('SeattleSales');
-    linePrintEL = document.createElement('li');
-    linePrintEL.textContent = 'Total: ' + this.totalDailyCookieSales + ' cookies';
-    seattleDisplayEL.appendChild(linePrintEL);
-  }
-};
+//  *****66666*****  HISTORICAL LAB06 AREA TO DOCUMENT SOURCES AND HELP RECEIVED DURING LAB06 WORK THAT IS NOW NOT A PART OF LAB07  *****66666*****
+
+// var seattleObject = {
+//   minimumHourlyCustomers: 23,
+//   maximumHourlyCustomers: 65,
+//   averageCookiesPerCustomer: 6.3,
+//   hourlyCustomerCount: [],
+//   hourlyCookieCount: [],
+//   totalDailyCookieSales: 0,
+//   calcRandomCustomers: function() {
+//     //calculates a number of customers that come in for a given hour bucket and fills array
+//     var min = Math.ceil(this.minimumHourlyCustomers);
+//     var max = Math.floor(this.maximumHourlyCustomers);
+//     for (var k = 0; k < hourBuckets.length; k++) {
+//       this.hourlyCustomerCount[k] = Math.floor(Math.random() * (max - min +1)) + min;
+//     }
+//     // The above three lines will return a random integer within the specified range, inclusive of both the min and max
+//     // Thanks to MDN web docs for the help with it.  Info at:  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+//     return;
+//   },
+//   calcHourlyCookieSales: function() {
+//     for (var m = 0; m < hourBuckets.length; m++) {
+//       this.hourlyCookieCount[m] = Math.round(this.averageCookiesPerCustomer * this.hourlyCustomerCount[m]);
+//       // console.log('avg type', typeof(this.averageCookiesPerCustomer));
+//       // console.log('this.hourlyCookieCount[m] type', typeof(this.hourlyCookieCount[m]));
+//       // console.log('type of randomCustomers', typeof(this.calcRandomCustomers[m]));  <-- I called the method instead of the property... oops!
+//     }
+//     // Thanks again to MDN for help with the rounding function: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/round
+//     return;
+//   },
+//   calcTotalDailyCount: function() {
+//     for (var j = 0; j < hourBuckets.length; j++) {
+//       this.totalDailyCookieSales += this.hourlyCookieCount[j];
+//     }
+//     return;
+//   },
+//   printSalesData: function() {
+//     //Print out the hourly cookie sales
+//     for (var i = 0; i<hourBuckets.length; i++) {
+//       var seattleDisplayEL = document.getElementById('SeattleSales');
+//       var linePrintEL = document.createElement('li');
+//       linePrintEL.textContent = hourBuckets[i] + ': ' + this.hourlyCookieCount[i] + ' cookies';
+//       seattleDisplayEL.appendChild(linePrintEL);
+//     }
+
+//     //Display total cookies for the location
+//     seattleDisplayEL = document.getElementById('SeattleSales');
+//     linePrintEL = document.createElement('li');
+//     linePrintEL.textContent = 'Total: ' + this.totalDailyCookieSales + ' cookies';
+//     seattleDisplayEL.appendChild(linePrintEL);
+//   }
+// };
 
 //Thanks to Skylar for the hint to pay attention to types by adding the suffix "EL" to anything that is an HTML element.
 
@@ -112,188 +111,187 @@ var seattleObject = {
 // I bet we will learn a way tomorrow to put all of these objects... in a higher object?
 // All comments and sources removed, refer to the seattle object definition
 
-var tokyoObject = {
-  minimumHourlyCustomers: 3,
-  maximumHourlyCustomers: 24,
-  averageCookiesPerCustomer: 1.2,
-  hourlyCustomerCount: [],
-  hourlyCookieCount: [],
-  totalDailyCookieSales: 0,
-  calcRandomCustomers: function() {
+//  *****66666*****  -END- HISTORICAL LAB06 AREA TO DOCUMENT SOURCES AND HELP RECEIVED DURING LAB06 WORK THAT IS NOW NOT A PART OF LAB07 -END-  *****66666*****
+
+
+
+
+
+
+// ********** Lab07 CODE AREA FOLLOWS  ******************
+
+//  *****  GLOBAL VARIABLES  *****
+var hourBuckets = ['6:00am','7:00am','8:00am','9:00am','10:00am','11:00am','12:00pm','1:00pm','2:00pm','3:00pm','4:00pm','5:00pm','6:00pm','7:00pm'];
+// Defining arrays to contain city given information
+// cityGivens = [minimumHourlyCustomers, maximumHourlyCustomers, averageCookiesPerCustomer]
+var seattleGivens = [23, 65, 6.3, 'SeattleSales'];
+var tokyoGivens = [3, 24, 1.2, 'TokyoSales'];
+var dubaiGivens = [11, 38, 3.7, 'DubaiSales'];
+var parisGivens = [20, 38, 2.3, 'ParisSales'];
+var limaGivens = [2, 16, 4.6, 'LimaSales'];
+
+//  *****  CONSTRUCTOR  *****
+// Constructor for creating objects of object type Store
+function Store(minimumHourlyCustomers, maximumHourlyCustomers, averageCookiesPerCustomer,targetEL) {
+  this.minimumHourlyCustomers = minimumHourlyCustomers;
+  this.maximumHourlyCustomers = maximumHourlyCustomers;
+  this.averageCookiesPerCustomer = averageCookiesPerCustomer;
+  this.targetEL = targetEL;
+  this.hourlyCustomerCount = [];
+  this.hourlyCookieCount = [];
+  this.totalDailyCookieSales = 0;
+  this.calcRandomCustomers = function() {
     var min = Math.ceil(this.minimumHourlyCustomers);
     var max = Math.floor(this.maximumHourlyCustomers);
     for (var k = 0; k < hourBuckets.length; k++) {
-      this.hourlyCustomerCount[k] = Math.floor(Math.random() * (max - min +1)) + min;
+      this.hourlyCustomerCount.push(Math.floor(Math.random() * (max - min + 1)) + min);
     }
-    return;
-  },
-  calcHourlyCookieSales: function() {
-    for (var m = 0; m < hourBuckets.length; m++) {
-      this.hourlyCookieCount[m] = Math.round(this.averageCookiesPerCustomer * this.hourlyCustomerCount[m]);
-    }
-    return;
-  },
-  calcTotalDailyCount: function() {
-    for (var j = 0; j < hourBuckets.length; j++) {
-      this.totalDailyCookieSales += this.hourlyCookieCount[j];
-    }
-    return;
-  },
-  printSalesData: function() {
-    for (var i = 0; i < hourBuckets.length; i++) {
-      var tokyoDisplayEL = document.getElementById('TokyoSales');
-      var linePrintEL = document.createElement('li');
-      linePrintEL.textContent = hourBuckets[i] + ': ' + this.hourlyCookieCount[i] + ' cookies';
-      tokyoDisplayEL.appendChild(linePrintEL);
-    }
-    tokyoDisplayEL = document.getElementById('TokyoSales');
-    linePrintEL = document.createElement('li');
-    linePrintEL.textContent = 'Total: ' + this.totalDailyCookieSales + ' cookies';
-    tokyoDisplayEL.appendChild(linePrintEL);
-  }
-};
-
-var dubaiObject = {
-  minimumHourlyCustomers: 11,
-  maximumHourlyCustomers: 38,
-  averageCookiesPerCustomer: 3.7,
-  hourlyCustomerCount: [],
-  hourlyCookieCount: [],
-  totalDailyCookieSales: 0,
-  calcRandomCustomers: function() {
-    for (var k = 0; k < hourBuckets.length; k++) {
-      this.hourlyCustomerCount[k] = Math.floor(Math.random() * (Math.floor(this.maximumHourlyCustomers)-Math.ceil(this.minimumHourlyCustomers)+1))+Math.ceil(this.minimumHourlyCustomers);
-    }
-  },
-  calcHourlyCookieSales: function() {
-    for (var m = 0; m < hourBuckets.length; m++) {
-      this.hourlyCookieCount[m] = Math.round(this.averageCookiesPerCustomer * this.hourlyCustomerCount[m]);
-    }
-  },
-  calcTotalDailyCount: function() {
-    for (var j = 0; j < hourBuckets.length; j++) {
-      this.totalDailyCookieSales += this.hourlyCookieCount[j];
-    }
-  },
-  printSalesData: function() {
-    for (var i = 0; i < hourBuckets.length; i++) {
-      var dubaiDisplayEL = document.getElementById('DubaiSales');
-      var linePrintEL = document.createElement('li');
-      linePrintEL.textContent = hourBuckets[i] + ': ' + this.hourlyCookieCount[i] + ' cookies';
-      dubaiDisplayEL.appendChild(linePrintEL);
-    }
-    dubaiDisplayEL = document.getElementById('DubaiSales');
-    linePrintEL = document.createElement('li');
-    linePrintEL.textContent = 'Total: ' + this.totalDailyCookieSales + ' cookies';
-    dubaiDisplayEL.appendChild(linePrintEL);
-  }
-};
-
-var parisObject  = {
-  minimumHourlyCustomers: 20,
-  maximumHourlyCustomers: 38,
-  averageCookiesPerCustomer: 2.3,
-  hourlyCustomerCount: [],
-  hourlyCookieCount: [],
-  totalDailyCookieSales: 0,
-  calcRandomCustomers: function() {
-    var min = Math.ceil(this.minimumHourlyCustomers);
-    var max = Math.floor(this.maximumHourlyCustomers);
-    for (var k = 0; k < hourBuckets.length; k++) {
-    //this.hourlyCustomerCount[k] = Math.floor(Math.random() * (max - min +1)) + min;
-    //Trying out the .push function (https://www.w3schools.com/jsref/jsref_push.asp)
-      this.hourlyCustomerCount.push(Math.floor(Math.random() * (max - min +1)) + min);
-    }
-  },
-  calcHourlyCookieSales: function() {
+  };
+  this.calcHourlyCookieSales = function() {
     for (var m = 0; m < hourBuckets.length; m++) {
       this.hourlyCookieCount.push(Math.round(this.averageCookiesPerCustomer * this.hourlyCustomerCount[m]));
     }
-  },
-  calcTotalDailyCount: function() {
+  };
+  this.calcTotalDailyCount = function() {
     for (var j = 0; j < hourBuckets.length; j++) {
       this.totalDailyCookieSales += this.hourlyCookieCount[j];
     }
-  },
-  printSalesData: function() {
+  };
+  this.printSalesData = function() {
     for (var i = 0; i < hourBuckets.length; i++) {
-      var parisDisplayEL = document.getElementById('ParisSales');
+      var cityDisplayEL = document.getElementById(targetEL);
       var linePrintEL = document.createElement('li');
       linePrintEL.textContent = hourBuckets[i] + ': ' + this.hourlyCookieCount[i] + ' cookies';
-      parisDisplayEL.appendChild(linePrintEL);
+      cityDisplayEL.appendChild(linePrintEL);
     }
-    parisDisplayEL = document.getElementById('ParisSales');
+    cityDisplayEL = document.getElementById(targetEL);
     linePrintEL = document.createElement('li');
     linePrintEL.textContent = 'Total: ' + this.totalDailyCookieSales + ' cookies';
-    parisDisplayEL.appendChild(linePrintEL);
-  }
-};
-
-var limaObject  = {
-  minimumHourlyCustomers: 2,
-  maximumHourlyCustomers: 16,
-  averageCookiesPerCustomer: 4.6,
-  hourlyCustomerCount: [],
-  hourlyCookieCount: [],
-  totalDailyCookieSales: 0,
-  calcRandomCustomers: function() {
-    var min = Math.ceil(this.minimumHourlyCustomers);
-    var max = Math.floor(this.maximumHourlyCustomers);
-    for (var k = 0; k < hourBuckets.length; k++) {
-      this.hourlyCustomerCount.push(Math.floor(Math.random() * (max - min +1)) + min);
-    }
-  },
-  calcHourlyCookieSales: function() {
-    for (var m = 0; m < hourBuckets.length; m++) {
-      this.hourlyCookieCount.push(Math.round(this.averageCookiesPerCustomer * this.hourlyCustomerCount[m]));
-    }
-  },
-  calcTotalDailyCount: function() {
-    for (var j = 0; j < hourBuckets.length; j++) {
-      this.totalDailyCookieSales += this.hourlyCookieCount[j];
-    }
-  },
-  printSalesData: function() {
-    for (var i = 0; i < hourBuckets.length; i++) {
-      var limaDisplayEL = document.getElementById('LimaSales');
-      var linePrintEL = document.createElement('li');
-      linePrintEL.textContent = hourBuckets[i] + ': ' + this.hourlyCookieCount[i] + ' cookies';
-      limaDisplayEL.appendChild(linePrintEL);
-    }
-    limaDisplayEL = document.getElementById('LimaSales');
-    linePrintEL = document.createElement('li');
-    linePrintEL.textContent = 'Total: ' + this.totalDailyCookieSales + ' cookies';
-    limaDisplayEL.appendChild(linePrintEL);
-  },
-  calculateAndRenderLocation: function() {
+    cityDisplayEL.appendChild(linePrintEL);
+  };
+  this.calculateAndRenderLocation = function() {
     this.calcRandomCustomers();
     this.calcHourlyCookieSales();
     this.calcTotalDailyCount();
     this.printSalesData();
+  };
+}
+
+//  *****  USE PROTOTYPE FUNCTION OF OBJECTS TO ADD A TABLE RENDERING FUNCTION  *****
+Store.prototype.tableRender = function() {
+  // use previously defined methods to calculate all of the numbers
+  this.calcRandomCustomers();
+  this.calcHourlyCookieSales();
+  this.calcTotalDailyCount();
+
+  //Make table
+  //1 identify element
+  var table = document.getElementById('salesDataTable');
+  //2 create element
+  var row = document.createElement('tr');
+  //2.5 fill content
+  // content for a row is a cell
+  // do the full 3 step process for a cell
+  // cell: 1. find parent... DONE, parent is 'var row'
+  // cell: 2. make element
+  var tableCell = document.createElement('td');
+  // cell: 2.5 give it content
+  // content for the cell is city name
+  tableCell.textContent = 'how print name of object?';   ////  <----------------------------- ????
+  // Trying to figure out how to print city names below:
+  // tableCell.textContent = this.Store;
+  // console.log(Store);
+  // console.log(this.Store);
+  // console.log(this);
+  // console.log(this.name);
+
+  // cell: 3 append cell to parent which is the row
+  row.appendChild(tableCell);
+  // same parent row for all of the cells containing hourly sales data... so run a for loop to fill in all the data for this city. It needs to include steps 2, 2.5, and 3. For step 1, they all have the same parent... the row!
+  for (var q = 0; q < hourBuckets.length; q++) {
+    tableCell = document.createElement('td');
+    tableCell.textContent = this.hourlyCookieCount[q];
+    row.appendChild(tableCell);
   }
+  //and one more column for Daily Totals
+  tableCell = document.createElement('td');
+  tableCell.textContent = this.totalDailyCookieSales;
+  row.appendChild(tableCell);
+  //AND DONT forget step 3... row needs to be appended to its parent, the table
+  table.appendChild(row);
 };
 
-//  *****  METHOD CALLS  *****
 
-seattleObject.calcRandomCustomers();
-seattleObject.calcHourlyCookieSales();
-seattleObject.calcTotalDailyCount();
-seattleObject.printSalesData();
 
-tokyoObject.calcRandomCustomers();
-tokyoObject.calcHourlyCookieSales();
-tokyoObject.calcTotalDailyCount();
-tokyoObject.printSalesData();
+//  *****  CREATING OBJECTS FOR EACH STORE  *****
+var seattleObject = new Store(...seattleGivens);
+var tokyoObject = new Store(...tokyoGivens);
+var dubaiObject = new Store(...dubaiGivens);
+var parisObject = new Store(...parisGivens);
+var limaObject = new Store(...limaGivens);
+// Thanks to this website for preventing me from typing out these arrays in their entirety:  https://www.samanthaming.com/tidbits/48-passing-arrays-as-function-arguments/
 
-dubaiObject.calcRandomCustomers();
-dubaiObject.calcHourlyCookieSales();
-dubaiObject.calcTotalDailyCount();
-dubaiObject.printSalesData();
 
-parisObject.calcRandomCustomers();
-parisObject.calcHourlyCookieSales();
-parisObject.calcTotalDailyCount();
-parisObject.printSalesData();
+//  ***** FUNCTION DECLARATIONS  *****
+function makeTableHeader(arrayOfHours) {
+  // 1. find the target
+  var table = document.getElementById('salesDataTable');
+  // 2. create new element
+  var row = document.createElement('tr');
+  // 2.5 give it content
+  // content for a row is a cell
+  // do the full 3 step process for a cell
+  // cell: 1. find parent... DONE, because 'var row' is the parent
+  // cell: 2. make element
+  var tableHeadCell = document.createElement('th');
+  // cell: 2.5. give it content
+  // content for the cell is timeBucket
+  tableHeadCell.textContent = 'City';
+  // cell: 3 append cell to parent (which is the row)
+  row.appendChild(tableHeadCell);
+  // Same parent (row) for all of the hourly time buckets... so run a for loop to fill it in containing steps 2, 2.5, and 3.
+  for (var p = 0; p < arrayOfHours.length; p++) {
+    tableHeadCell = document.createElement('th');
+    tableHeadCell.textContent = arrayOfHours[p];
+    row.appendChild(tableHeadCell);
+  }
+  //and one more column for Daily totals
+  tableHeadCell = document.createElement('th');
+  tableHeadCell.textContent = 'Daily Location Total';
+  row.appendChild(tableHeadCell);
+  // 3 row needs to be appended to its parent (the table)
+  table.appendChild(row);
+}
 
-limaObject.calculateAndRenderLocation();
+function makeTableFooter() {
+  console.log('mystery for the future');
+  // will need for loops calling each city's hourly total and adding them together to create this total
+  // adding it to the table will be similar to the other rows
+  // this will be the last thing to be worked on
+}
 
+
+//  *****  FUNCTION AND METHOD CALLS  *****
+
+// Old method calls for generating data and putting in lists:
+// seattleObject.calculateAndRenderLocation();
+// tokyoObject.calculateAndRenderLocation();
+// dubaiObject.calculateAndRenderLocation();
+// parisObject.calculateAndRenderLocation();
+// limaObject.calculateAndRenderLocation();
+
+// New function and method calls for generating data and putting in table:
+makeTableHeader(hourBuckets);
+
+seattleObject.tableRender();
+tokyoObject.tableRender();
+dubaiObject.tableRender();
+parisObject.tableRender();
+limaObject.tableRender();
+
+makeTableFooter();
+
+
+//  *****  ISSUES TO RESOLVE  *****
+// 1. Print city names in first column.
+// 2. Calculate totals for the hourly buckets across cities and add the totals as a row to bottom of table.
