@@ -36,70 +36,62 @@ Calculate Hourly Cookie Sales will take the random number of customers and multi
 Calculate Total Daily Sales by summing all hourly sales.
 */
 
-//  *****  GLOBAL VARIABLES  *****
-
-var hourBuckets = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm'];
-// Defining arrays to contain city given information
-// cityGivens = [minimumHourlyCustomers, maximumHourlyCustomers, averageCookiesPerCustomer]
-var seattleGivens = [23, 65, 6.3];
-var tokyoGivens = [3, 24, 1.2];
-var dubaiGivens = [11, 38, 3.7];
-var parisGivens = [20, 38, 2.3];
-var limaGivens = [2, 16, 4.6];
 
 
-//  *****  DEFINE ALL OF THE OBJECTS  *****
 
-var seattleObject = {
-  minimumHourlyCustomers: 23,
-  maximumHourlyCustomers: 65,
-  averageCookiesPerCustomer: 6.3,
-  hourlyCustomerCount: [],
-  hourlyCookieCount: [],
-  totalDailyCookieSales: 0,
-  calcRandomCustomers: function() {
-    //calculates a number of customers that come in for a given hour bucket and fills array
-    var min = Math.ceil(this.minimumHourlyCustomers);
-    var max = Math.floor(this.maximumHourlyCustomers);
-    for (var k = 0; k < hourBuckets.length; k++) {
-      this.hourlyCustomerCount[k] = Math.floor(Math.random() * (max - min +1)) + min;
-    }
-    // The above three lines will return a random integer within the specified range, inclusive of both the min and max
-    // Thanks to MDN web docs for the help with it.  Info at:  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-    return;
-  },
-  calcHourlyCookieSales: function() {
-    for (var m = 0; m < hourBuckets.length; m++) {
-      this.hourlyCookieCount[m] = Math.round(this.averageCookiesPerCustomer * this.hourlyCustomerCount[m]);
-      // console.log('avg type', typeof(this.averageCookiesPerCustomer));
-      // console.log('this.hourlyCookieCount[m] type', typeof(this.hourlyCookieCount[m]));
-      // console.log('type of randomCustomers', typeof(this.calcRandomCustomers[m]));  <-- I called the method instead of the property... oops!
-    }
-    // Thanks again to MDN for help with the rounding function: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/round
-    return;
-  },
-  calcTotalDailyCount: function() {
-    for (var j = 0; j < hourBuckets.length; j++) {
-      this.totalDailyCookieSales += this.hourlyCookieCount[j];
-    }
-    return;
-  },
-  printSalesData: function() {
-    //Print out the hourly cookie sales
-    for (var i = 0; i<hourBuckets.length; i++) {
-      var seattleDisplayEL = document.getElementById('SeattleSales');
-      var linePrintEL = document.createElement('li');
-      linePrintEL.textContent = hourBuckets[i] + ': ' + this.hourlyCookieCount[i] + ' cookies';
-      seattleDisplayEL.appendChild(linePrintEL);
-    }
 
-    //Display total cookies for the location
-    seattleDisplayEL = document.getElementById('SeattleSales');
-    linePrintEL = document.createElement('li');
-    linePrintEL.textContent = 'Total: ' + this.totalDailyCookieSales + ' cookies';
-    seattleDisplayEL.appendChild(linePrintEL);
-  }
-};
+//  *****66666*****  HISTORICAL LAB06 AREA TO DOCUMENT SOURCES AND HELP RECEIVED DURING LAB06 WORK THAT IS NOW NOT A PART OF LAB07  *****66666*****
+
+// var seattleObject = {
+//   minimumHourlyCustomers: 23,
+//   maximumHourlyCustomers: 65,
+//   averageCookiesPerCustomer: 6.3,
+//   hourlyCustomerCount: [],
+//   hourlyCookieCount: [],
+//   totalDailyCookieSales: 0,
+//   calcRandomCustomers: function() {
+//     //calculates a number of customers that come in for a given hour bucket and fills array
+//     var min = Math.ceil(this.minimumHourlyCustomers);
+//     var max = Math.floor(this.maximumHourlyCustomers);
+//     for (var k = 0; k < hourBuckets.length; k++) {
+//       this.hourlyCustomerCount[k] = Math.floor(Math.random() * (max - min +1)) + min;
+//     }
+//     // The above three lines will return a random integer within the specified range, inclusive of both the min and max
+//     // Thanks to MDN web docs for the help with it.  Info at:  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+//     return;
+//   },
+//   calcHourlyCookieSales: function() {
+//     for (var m = 0; m < hourBuckets.length; m++) {
+//       this.hourlyCookieCount[m] = Math.round(this.averageCookiesPerCustomer * this.hourlyCustomerCount[m]);
+//       // console.log('avg type', typeof(this.averageCookiesPerCustomer));
+//       // console.log('this.hourlyCookieCount[m] type', typeof(this.hourlyCookieCount[m]));
+//       // console.log('type of randomCustomers', typeof(this.calcRandomCustomers[m]));  <-- I called the method instead of the property... oops!
+//     }
+//     // Thanks again to MDN for help with the rounding function: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/round
+//     return;
+//   },
+//   calcTotalDailyCount: function() {
+//     for (var j = 0; j < hourBuckets.length; j++) {
+//       this.totalDailyCookieSales += this.hourlyCookieCount[j];
+//     }
+//     return;
+//   },
+//   printSalesData: function() {
+//     //Print out the hourly cookie sales
+//     for (var i = 0; i<hourBuckets.length; i++) {
+//       var seattleDisplayEL = document.getElementById('SeattleSales');
+//       var linePrintEL = document.createElement('li');
+//       linePrintEL.textContent = hourBuckets[i] + ': ' + this.hourlyCookieCount[i] + ' cookies';
+//       seattleDisplayEL.appendChild(linePrintEL);
+//     }
+
+//     //Display total cookies for the location
+//     seattleDisplayEL = document.getElementById('SeattleSales');
+//     linePrintEL = document.createElement('li');
+//     linePrintEL.textContent = 'Total: ' + this.totalDailyCookieSales + ' cookies';
+//     seattleDisplayEL.appendChild(linePrintEL);
+//   }
+// };
 
 //Thanks to Skylar for the hint to pay attention to types by adding the suffix "EL" to anything that is an HTML element.
 
@@ -119,179 +111,16 @@ var seattleObject = {
 // I bet we will learn a way tomorrow to put all of these objects... in a higher object?
 // All comments and sources removed, refer to the seattle object definition
 
-var tokyoObject = {
-  minimumHourlyCustomers: 3,
-  maximumHourlyCustomers: 24,
-  averageCookiesPerCustomer: 1.2,
-  hourlyCustomerCount: [],
-  hourlyCookieCount: [],
-  totalDailyCookieSales: 0,
-  calcRandomCustomers: function() {
-    var min = Math.ceil(this.minimumHourlyCustomers);
-    var max = Math.floor(this.maximumHourlyCustomers);
-    for (var k = 0; k < hourBuckets.length; k++) {
-      this.hourlyCustomerCount[k] = Math.floor(Math.random() * (max - min +1)) + min;
-    }
-    return;
-  },
-  calcHourlyCookieSales: function() {
-    for (var m = 0; m < hourBuckets.length; m++) {
-      this.hourlyCookieCount[m] = Math.round(this.averageCookiesPerCustomer * this.hourlyCustomerCount[m]);
-    }
-    return;
-  },
-  calcTotalDailyCount: function() {
-    for (var j = 0; j < hourBuckets.length; j++) {
-      this.totalDailyCookieSales += this.hourlyCookieCount[j];
-    }
-    return;
-  },
-  printSalesData: function() {
-    for (var i = 0; i < hourBuckets.length; i++) {
-      var tokyoDisplayEL = document.getElementById('TokyoSales');
-      var linePrintEL = document.createElement('li');
-      linePrintEL.textContent = hourBuckets[i] + ': ' + this.hourlyCookieCount[i] + ' cookies';
-      tokyoDisplayEL.appendChild(linePrintEL);
-    }
-    tokyoDisplayEL = document.getElementById('TokyoSales');
-    linePrintEL = document.createElement('li');
-    linePrintEL.textContent = 'Total: ' + this.totalDailyCookieSales + ' cookies';
-    tokyoDisplayEL.appendChild(linePrintEL);
-  }
-};
-
-var dubaiObject = {
-  minimumHourlyCustomers: 11,
-  maximumHourlyCustomers: 38,
-  averageCookiesPerCustomer: 3.7,
-  hourlyCustomerCount: [],
-  hourlyCookieCount: [],
-  totalDailyCookieSales: 0,
-  calcRandomCustomers: function() {
-    for (var k = 0; k < hourBuckets.length; k++) {
-      this.hourlyCustomerCount[k] = Math.floor(Math.random() * (Math.floor(this.maximumHourlyCustomers)-Math.ceil(this.minimumHourlyCustomers)+1))+Math.ceil(this.minimumHourlyCustomers);
-    }
-  },
-  calcHourlyCookieSales: function() {
-    for (var m = 0; m < hourBuckets.length; m++) {
-      this.hourlyCookieCount[m] = Math.round(this.averageCookiesPerCustomer * this.hourlyCustomerCount[m]);
-    }
-  },
-  calcTotalDailyCount: function() {
-    for (var j = 0; j < hourBuckets.length; j++) {
-      this.totalDailyCookieSales += this.hourlyCookieCount[j];
-    }
-  },
-  printSalesData: function() {
-    for (var i = 0; i < hourBuckets.length; i++) {
-      var dubaiDisplayEL = document.getElementById('DubaiSales');
-      var linePrintEL = document.createElement('li');
-      linePrintEL.textContent = hourBuckets[i] + ': ' + this.hourlyCookieCount[i] + ' cookies';
-      dubaiDisplayEL.appendChild(linePrintEL);
-    }
-    dubaiDisplayEL = document.getElementById('DubaiSales');
-    linePrintEL = document.createElement('li');
-    linePrintEL.textContent = 'Total: ' + this.totalDailyCookieSales + ' cookies';
-    dubaiDisplayEL.appendChild(linePrintEL);
-  }
-};
-
-var parisObject  = {
-  minimumHourlyCustomers: 20,
-  maximumHourlyCustomers: 38,
-  averageCookiesPerCustomer: 2.3,
-  hourlyCustomerCount: [],
-  hourlyCookieCount: [],
-  totalDailyCookieSales: 0,
-  calcRandomCustomers: function() {
-    var min = Math.ceil(this.minimumHourlyCustomers);
-    var max = Math.floor(this.maximumHourlyCustomers);
-    for (var k = 0; k < hourBuckets.length; k++) {
-    //this.hourlyCustomerCount[k] = Math.floor(Math.random() * (max - min +1)) + min;
-    //Trying out the .push function (https://www.w3schools.com/jsref/jsref_push.asp)
-      this.hourlyCustomerCount.push(Math.floor(Math.random() * (max - min +1)) + min);
-    }
-  },
-  calcHourlyCookieSales: function() {
-    for (var m = 0; m < hourBuckets.length; m++) {
-      this.hourlyCookieCount.push(Math.round(this.averageCookiesPerCustomer * this.hourlyCustomerCount[m]));
-    }
-  },
-  calcTotalDailyCount: function() {
-    for (var j = 0; j < hourBuckets.length; j++) {
-      this.totalDailyCookieSales += this.hourlyCookieCount[j];
-    }
-  },
-  printSalesData: function() {
-    for (var i = 0; i < hourBuckets.length; i++) {
-      var parisDisplayEL = document.getElementById('ParisSales');
-      var linePrintEL = document.createElement('li');
-      linePrintEL.textContent = hourBuckets[i] + ': ' + this.hourlyCookieCount[i] + ' cookies';
-      parisDisplayEL.appendChild(linePrintEL);
-    }
-    parisDisplayEL = document.getElementById('ParisSales');
-    linePrintEL = document.createElement('li');
-    linePrintEL.textContent = 'Total: ' + this.totalDailyCookieSales + ' cookies';
-    parisDisplayEL.appendChild(linePrintEL);
-  }
-};
-
-//Going to use the limaObject as the example for the constructor (don't delete it)
-var limaObject  = {
-  minimumHourlyCustomers: 2,
-  maximumHourlyCustomers: 16,
-  averageCookiesPerCustomer: 4.6,
-  hourlyCustomerCount: [],
-  hourlyCookieCount: [],
-  totalDailyCookieSales: 0,
-  calcRandomCustomers: function() {
-    var min = Math.ceil(this.minimumHourlyCustomers);
-    var max = Math.floor(this.maximumHourlyCustomers);
-    for (var k = 0; k < hourBuckets.length; k++) {
-      this.hourlyCustomerCount.push(Math.floor(Math.random() * (max - min + 1)) + min);
-    }
-  },
-  calcHourlyCookieSales: function() {
-    for (var m = 0; m < hourBuckets.length; m++) {
-      this.hourlyCookieCount.push(Math.round(this.averageCookiesPerCustomer * this.hourlyCustomerCount[m]));
-    }
-  },
-  calcTotalDailyCount: function() {
-    for (var j = 0; j < hourBuckets.length; j++) {
-      this.totalDailyCookieSales += this.hourlyCookieCount[j];
-    }
-  },
-  printSalesData: function() {
-    for (var i = 0; i < hourBuckets.length; i++) {
-      var limaDisplayEL = document.getElementById('LimaSales');
-      var linePrintEL = document.createElement('li');
-      linePrintEL.textContent = hourBuckets[i] + ': ' + this.hourlyCookieCount[i] + ' cookies';
-      limaDisplayEL.appendChild(linePrintEL);
-    }
-    limaDisplayEL = document.getElementById('LimaSales');
-    linePrintEL = document.createElement('li');
-    linePrintEL.textContent = 'Total: ' + this.totalDailyCookieSales + ' cookies';
-    limaDisplayEL.appendChild(linePrintEL);
-  },
-  calculateAndRenderLocation: function() {
-    this.calcRandomCustomers();
-    this.calcHourlyCookieSales();
-    this.calcTotalDailyCount();
-    this.printSalesData();
-  }
-};
+//  *****66666*****  -END- HISTORICAL LAB06 AREA TO DOCUMENT SOURCES AND HELP RECEIVED DURING LAB06 WORK THAT IS NOW NOT A PART OF LAB07 -END-  *****66666*****
 
 
 
 
 
 
-
-
-// ********** Lab07 Area  ******************
+// ********** Lab07 CODE AREA FOLLOWS  ******************
 
 //  *****  GLOBAL VARIABLES  *****
-
 var hourBuckets = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm'];
 // Defining arrays to contain city given information
 // cityGivens = [minimumHourlyCustomers, maximumHourlyCustomers, averageCookiesPerCustomer]
@@ -302,7 +131,6 @@ var parisGivens = [20, 38, 2.3, 'ParisSales'];
 var limaGivens = [2, 16, 4.6, 'LimaSales'];
 
 //  *****  CONSTRUCTOR  *****
-
 // Constructor for creating objects of object type Store
 function Store(minimumHourlyCustomers, maximumHourlyCustomers, averageCookiesPerCustomer,targetEL) {
   this.minimumHourlyCustomers = minimumHourlyCustomers;
