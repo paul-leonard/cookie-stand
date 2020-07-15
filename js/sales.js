@@ -282,6 +282,12 @@ var limaObject  = {
 };
 
 
+
+
+
+
+
+
 // ********** Lab07 Area  ******************
 
 //  *****  GLOBAL VARIABLES  *****
@@ -294,9 +300,10 @@ var tokyoGivens = [3, 24, 1.2, 'TokyoSales'];
 var dubaiGivens = [11, 38, 3.7, 'DubaiSales'];
 var parisGivens = [20, 38, 2.3, 'ParisSales'];
 var limaGivens = [2, 16, 4.6, 'LimaSales'];
-var portlandGivens = [2, 16, 4.6, 'LimaSales'];  //still sending to same place... only a test and don't want to modify HTML code
 
-// Attempt at creating the constructor
+//  *****  CONSTRUCTOR  *****
+
+// Constructor for creating objects of object type Store
 function Store(minimumHourlyCustomers, maximumHourlyCustomers, averageCookiesPerCustomer,targetEL) {
   this.minimumHourlyCustomers = minimumHourlyCustomers;
   this.maximumHourlyCustomers = maximumHourlyCustomers;
@@ -342,32 +349,18 @@ function Store(minimumHourlyCustomers, maximumHourlyCustomers, averageCookiesPer
   };
 }
 
-var portlandObject = new Store(portlandGivens[0],portlandGivens[1],portlandGivens[2],portlandGivens[3]);
-console.log(portlandObject);
-portlandObject.calculateAndRenderLocation();
+//  *****  CREATING OBJECTS FOR EACH STORE  *****
+var seattleObject = new Store(...seattleGivens);
+var tokyoObject = new Store(...tokyoGivens);
+var dubaiObject = new Store(...dubaiGivens);
+var parisObject = new Store(...parisGivens);
+var limaObject = new Store(...limaGivens);
 
 
 //  *****  METHOD CALLS  *****
-
-seattleObject.calcRandomCustomers();
-seattleObject.calcHourlyCookieSales();
-seattleObject.calcTotalDailyCount();
-seattleObject.printSalesData();
-
-tokyoObject.calcRandomCustomers();
-tokyoObject.calcHourlyCookieSales();
-tokyoObject.calcTotalDailyCount();
-tokyoObject.printSalesData();
-
-dubaiObject.calcRandomCustomers();
-dubaiObject.calcHourlyCookieSales();
-dubaiObject.calcTotalDailyCount();
-dubaiObject.printSalesData();
-
-parisObject.calcRandomCustomers();
-parisObject.calcHourlyCookieSales();
-parisObject.calcTotalDailyCount();
-parisObject.printSalesData();
-
+seattleObject.calculateAndRenderLocation();
+tokyoObject.calculateAndRenderLocation();
+dubaiObject.calculateAndRenderLocation();
+parisObject.calculateAndRenderLocation();
 limaObject.calculateAndRenderLocation();
 
