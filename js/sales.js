@@ -39,6 +39,13 @@ Calculate Total Daily Sales by summing all hourly sales.
 //  *****  GLOBAL VARIABLES  *****
 
 var hourBuckets = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm'];
+// Defining arrays to contain city given information
+// cityGivens = [minimumHourlyCustomers, maximumHourlyCustomers, averageCookiesPerCustomer]
+var seattleGivens = [23, 65, 6.3];
+var tokyoGivens = [3, 24, 1.2];
+var dubaiGivens = [11, 38, 3.7];
+var parisGivens = [20, 38, 2.3];
+var limaGivens = [2, 16, 4.6];
 
 
 //  *****  DEFINE ALL OF THE OBJECTS  *****
@@ -229,6 +236,7 @@ var parisObject  = {
   }
 };
 
+//Going to use the limaObject as the example for the constructor (don't delete it)
 var limaObject  = {
   minimumHourlyCustomers: 2,
   maximumHourlyCustomers: 16,
@@ -240,7 +248,7 @@ var limaObject  = {
     var min = Math.ceil(this.minimumHourlyCustomers);
     var max = Math.floor(this.maximumHourlyCustomers);
     for (var k = 0; k < hourBuckets.length; k++) {
-      this.hourlyCustomerCount.push(Math.floor(Math.random() * (max - min +1)) + min);
+      this.hourlyCustomerCount.push(Math.floor(Math.random() * (max - min + 1)) + min);
     }
   },
   calcHourlyCookieSales: function() {
@@ -272,6 +280,72 @@ var limaObject  = {
     this.printSalesData();
   }
 };
+
+
+// ********** Lab07 Area  ******************
+
+//  *****  GLOBAL VARIABLES  *****
+
+var hourBuckets = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm'];
+// Defining arrays to contain city given information
+// cityGivens = [minimumHourlyCustomers, maximumHourlyCustomers, averageCookiesPerCustomer]
+var seattleGivens = [23, 65, 6.3, 'SeattleSales'];
+var tokyoGivens = [3, 24, 1.2, 'TokyoSales'];
+var dubaiGivens = [11, 38, 3.7, 'DubaiSales'];
+var parisGivens = [20, 38, 2.3, 'ParisSales'];
+var limaGivens = [2, 16, 4.6, 'LimaSales'];
+var portlandGivens = [2, 16, 4.6, 'LimaSales'];  //still sending to same place... only a test and don't want to modify HTML code
+
+// Attempt at creating the constructor
+function Store(minimumHourlyCustomers, maximumHourlyCustomers, averageCookiesPerCustomer,targetEL) {
+  this.minimumHourlyCustomers = minimumHourlyCustomers;
+  this.maximumHourlyCustomers = maximumHourlyCustomers;
+  this.averageCookiesPerCustomer = averageCookiesPerCustomer;
+  this.targetEL = targetEL;
+  this.hourlyCustomerCount = [];
+  this.hourlyCookieCount = [];
+  this.totalDailyCookieSales = 0;
+  this.calcRandomCustomers = function() {
+    var min = Math.ceil(this.minimumHourlyCustomers);
+    var max = Math.floor(this.maximumHourlyCustomers);
+    for (var k = 0; k < hourBuckets.length; k++) {
+      this.hourlyCustomerCount.push(Math.floor(Math.random() * (max - min + 1)) + min);
+    }
+  };
+  this.calcHourlyCookieSales = function() {
+    for (var m = 0; m < hourBuckets.length; m++) {
+      this.hourlyCookieCount.push(Math.round(this.averageCookiesPerCustomer * this.hourlyCustomerCount[m]));
+    }
+  };
+  this.calcTotalDailyCount = function() {
+    for (var j = 0; j < hourBuckets.length; j++) {
+      this.totalDailyCookieSales += this.hourlyCookieCount[j];
+    }
+  };
+  this.printSalesData = function() {
+    for (var i = 0; i < hourBuckets.length; i++) {
+      var cityDisplayEL = document.getElementById(targetEL);
+      var linePrintEL = document.createElement('li');
+      linePrintEL.textContent = hourBuckets[i] + ': ' + this.hourlyCookieCount[i] + ' cooies';
+      cityDisplayEL.appendChild(linePrintEL);
+    }
+    cityDisplayEL = document.getElementById(targetEL);
+    linePrintEL = document.createElement('li');
+    linePrintEL.textContent = 'Total: ' + this.totalDailyCookieSales + ' cookies';
+    cityDisplayEL.appendChild(linePrintEL);
+  };
+  this.calculateAndRenderLocation = function() {
+    this.calcRandomCustomers();
+    this.calcHourlyCookieSales();
+    this.calcTotalDailyCount();
+    this.printSalesData();
+  };
+}
+
+var portlandObject = new Store(portlandGivens[0],portlandGivens[1],portlandGivens[2],portlandGivens[3]);
+console.log(portlandObject);
+portlandObject.calculateAndRenderLocation();
+
 
 //  *****  METHOD CALLS  *****
 
