@@ -121,7 +121,7 @@ Calculate Total Daily Sales by summing all hourly sales.
 // ********** Lab07 CODE AREA FOLLOWS  ******************
 
 //  *****  GLOBAL VARIABLES  *****
-var hourBuckets = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm'];
+var hourBuckets = ['6:00am','7:00am','8:00am','9:00am','10:00am','11:00am','12:00pm','1:00pm','2:00pm','3:00pm','4:00pm','5:00pm','6:00pm','7:00pm'];
 // Defining arrays to contain city given information
 // cityGivens = [minimumHourlyCustomers, maximumHourlyCustomers, averageCookiesPerCustomer]
 var seattleGivens = [23, 65, 6.3, 'SeattleSales'];
@@ -177,18 +177,91 @@ function Store(minimumHourlyCustomers, maximumHourlyCustomers, averageCookiesPer
   };
 }
 
+//  *****  USE PROTOTYPE FUNCTION OF OBJECTS TO ADD A TABLE RENDERING FUNCTION  *****
+Store.prototype.tableRender = function() {
+  this.calcRandomCustomers();
+  this.calcHourlyCookieSales();
+  this.calcTotalDailyCount();
+  //Make table
+  //1 identify element
+  //2 create element
+  //2.5 fill content
+  //2.5 goes deeper
+      //1
+      //2
+      //2.5
+      //3
+  //3
+};
+
+
+
 //  *****  CREATING OBJECTS FOR EACH STORE  *****
 var seattleObject = new Store(...seattleGivens);
 var tokyoObject = new Store(...tokyoGivens);
 var dubaiObject = new Store(...dubaiGivens);
 var parisObject = new Store(...parisGivens);
 var limaObject = new Store(...limaGivens);
+// Thanks to this website for preventing me from typing out these arrays in their entirety:  https://www.samanthaming.com/tidbits/48-passing-arrays-as-function-arguments/
 
 
-//  *****  METHOD CALLS  *****
-seattleObject.calculateAndRenderLocation();
-tokyoObject.calculateAndRenderLocation();
-dubaiObject.calculateAndRenderLocation();
-parisObject.calculateAndRenderLocation();
-limaObject.calculateAndRenderLocation();
+//  ***** FUNCTION DECLARATIONS  *****
+function makeTableHeader(arrayOfHours) {
+  console.log(arrayOfHours);
+  console.log('in makeTableHeader');
+  // 1. find the target
+  var table = document.getElementById('salesDataTable');
+  // 2. create new element
+  var row = document.createElement('tr');
+  // 2.5 give it content
+  // content for a row is a cell
+  // do the full 3 step process for a cell
+  // cell: 1. find parent... DONE, because 'var row' is the parent
+  // cell: 2. make element
+  var tableHeadCell = document.createElement('th');
+  // cell: 2.5. give it content
+  // content for the cell is timeBucket
+  tableHeadCell.textContent = 'City';
+  // cell: 3 append cell to parent (which is the row)
+  row.appendChild(tableHeadCell);
+  // Same parent (row) for all of the hourly time buckets... so run a for loop to fill it in containingsteps 2, 2.5, and 3.
+  for (var p = 0; p < arrayOfHours.length; p++) {
+    tableHeadCell = document.createElement('th');
+    tableHeadCell.textContent = arrayOfHours[p];
+    row.appendChild(tableHeadCell);
+  }
+  //and one more column for Daily totals
+  tableHeadCell = document.createElement('th');
+  tableHeadCell.textContent = 'Daily Location Total';
+  row.appendChild(tableHeadCell);
+  // 3 row needs to be appended to its parent (the table)
+  table.appendChild(row);
+}
 
+function makeTableFooter() {
+  console.log('mystery so far');
+  // will need for loops calling each city's hourly total and adding them together to create this total
+  // adding it to the table will be similar to the other rows
+  // this will be the last thing to be worked on
+}
+
+
+//  *****  FUNCTION AND METHOD CALLS  *****
+
+// Old method calls for generating data and putting in lists:
+// seattleObject.calculateAndRenderLocation();
+// tokyoObject.calculateAndRenderLocation();
+// dubaiObject.calculateAndRenderLocation();
+// parisObject.calculateAndRenderLocation();
+// limaObject.calculateAndRenderLocation();
+
+// New function and method calls for generating data and putting in table:
+makeTableHeader(hourBuckets);
+
+seattleObject.tableRender();
+tokyoObject.tableRender();
+dubaiObject.tableRender();
+parisObject.tableRender();
+limaObject.tableRender();
+
+makeTableFooter();

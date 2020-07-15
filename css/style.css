@@ -5,3 +5,8 @@
 h1, h2 {
   text-align: center;
 }
+
+table, td, th {
+  border: solid black 1px;
+  border-collapse: collapse;
+}
