@@ -197,7 +197,14 @@ Store.prototype.tableRender = function() {
   var tableCell = document.createElement('td');
   // cell: 2.5 give it content
   // content for the cell is city name
-  tableCell.textContent = 'how print name of object?';   ////  <---- ????
+  tableCell.textContent = 'how print name of object?';   ////  <----------------------------- ????
+  // Trying to figure out how to print city names below:
+  // tableCell.textContent = this.Store;
+  // console.log(Store);
+  // console.log(this.Store);
+  // console.log(this);
+  // console.log(this.name);
+
   // cell: 3 append cell to parent which is the row
   row.appendChild(tableCell);
   // same parent row for all of the cells containing hourly sales data... so run a for loop to fill in all the data for this city. It needs to include steps 2, 2.5, and 3. For step 1, they all have the same parent... the row!
@@ -283,3 +290,8 @@ parisObject.tableRender();
 limaObject.tableRender();
 
 makeTableFooter();
+
+
+//  *****  ISSUES TO RESOLVE  *****
+// 1. Print city names in first column.
+// 2. Calculate totals for the hourly buckets across cities and add the totals as a row to bottom of table.
