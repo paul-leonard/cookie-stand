@@ -161,7 +161,7 @@ function Store(minimumHourlyCustomers, maximumHourlyCustomers, averageCookiesPer
     for (var i = 0; i < hourBuckets.length; i++) {
       var cityDisplayEL = document.getElementById(targetEL);
       var linePrintEL = document.createElement('li');
-      linePrintEL.textContent = hourBuckets[i] + ': ' + this.hourlyCookieCount[i] + ' cooies';
+      linePrintEL.textContent = hourBuckets[i] + ': ' + this.hourlyCookieCount[i] + ' cookies';
       cityDisplayEL.appendChild(linePrintEL);
     }
     cityDisplayEL = document.getElementById(targetEL);
@@ -179,19 +179,39 @@ function Store(minimumHourlyCustomers, maximumHourlyCustomers, averageCookiesPer
 
 //  *****  USE PROTOTYPE FUNCTION OF OBJECTS TO ADD A TABLE RENDERING FUNCTION  *****
 Store.prototype.tableRender = function() {
+  // use previously defined methods to calculate all of the numbers
   this.calcRandomCustomers();
   this.calcHourlyCookieSales();
   this.calcTotalDailyCount();
+
   //Make table
   //1 identify element
+  var table = document.getElementById('salesDataTable');
   //2 create element
+  var row = document.createElement('tr');
   //2.5 fill content
-  //2.5 goes deeper
-      //1
-      //2
-      //2.5
-      //3
-  //3
+  // content for a row is a cell
+  // do the full 3 step process for a cell
+  // cell: 1. find parent... DONE, parent is 'var row'
+  // cell: 2. make element
+  var tableCell = document.createElement('td');
+  // cell: 2.5 give it content
+  // content for the cell is city name
+  tableCell.textContent = 'how print name of object?';   ////  <---- ????
+  // cell: 3 append cell to parent which is the row
+  row.appendChild(tableCell);
+  // same parent row for all of the cells containing hourly sales data... so run a for loop to fill in all the data for this city. It needs to include steps 2, 2.5, and 3. For step 1, they all have the same parent... the row!
+  for (var q = 0; q < hourBuckets.length; q++) {
+    tableCell = document.createElement('td');
+    tableCell.textContent = this.hourlyCookieCount[q];
+    row.appendChild(tableCell);
+  }
+  //and one more column for Daily Totals
+  tableCell = document.createElement('td');
+  tableCell.textContent = this.totalDailyCookieSales;
+  row.appendChild(tableCell);
+  //AND DONT forget step 3... row needs to be appended to its parent, the table
+  table.appendChild(row);
 };
 
 
@@ -207,8 +227,6 @@ var limaObject = new Store(...limaGivens);
 
 //  ***** FUNCTION DECLARATIONS  *****
 function makeTableHeader(arrayOfHours) {
-  console.log(arrayOfHours);
-  console.log('in makeTableHeader');
   // 1. find the target
   var table = document.getElementById('salesDataTable');
   // 2. create new element
@@ -224,7 +242,7 @@ function makeTableHeader(arrayOfHours) {
   tableHeadCell.textContent = 'City';
   // cell: 3 append cell to parent (which is the row)
   row.appendChild(tableHeadCell);
-  // Same parent (row) for all of the hourly time buckets... so run a for loop to fill it in containingsteps 2, 2.5, and 3.
+  // Same parent (row) for all of the hourly time buckets... so run a for loop to fill it in containing steps 2, 2.5, and 3.
   for (var p = 0; p < arrayOfHours.length; p++) {
     tableHeadCell = document.createElement('th');
     tableHeadCell.textContent = arrayOfHours[p];
@@ -239,7 +257,7 @@ function makeTableHeader(arrayOfHours) {
 }
 
 function makeTableFooter() {
-  console.log('mystery so far');
+  console.log('mystery for the future');
   // will need for loops calling each city's hourly total and adding them together to create this total
   // adding it to the table will be similar to the other rows
   // this will be the last thing to be worked on
