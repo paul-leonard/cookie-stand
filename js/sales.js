@@ -124,15 +124,16 @@ Calculate Total Daily Sales by summing all hourly sales.
 var hourBuckets = ['6:00am','7:00am','8:00am','9:00am','10:00am','11:00am','12:00pm','1:00pm','2:00pm','3:00pm','4:00pm','5:00pm','6:00pm','7:00pm'];
 // Defining arrays to contain city given information
 // cityGivens = [minimumHourlyCustomers, maximumHourlyCustomers, averageCookiesPerCustomer]
-var seattleGivens = [23, 65, 6.3, 'SeattleSales'];
-var tokyoGivens = [3, 24, 1.2, 'TokyoSales'];
-var dubaiGivens = [11, 38, 3.7, 'DubaiSales'];
-var parisGivens = [20, 38, 2.3, 'ParisSales'];
-var limaGivens = [2, 16, 4.6, 'LimaSales'];
+var seattleGivens = ['Seattle', 23, 65, 6.3, 'SeattleSales'];
+var tokyoGivens = ['Tokyo', 3, 24, 1.2, 'TokyoSales'];
+var dubaiGivens = ['Dubai', 11, 38, 3.7, 'DubaiSales'];
+var parisGivens = ['Paris', 20, 38, 2.3, 'ParisSales'];
+var limaGivens = ['Lima', 2, 16, 4.6, 'LimaSales'];
 
 //  *****  CONSTRUCTOR  *****
 // Constructor for creating objects of object type Store
-function Store(minimumHourlyCustomers, maximumHourlyCustomers, averageCookiesPerCustomer,targetEL) {
+function Store(storeName, minimumHourlyCustomers, maximumHourlyCustomers, averageCookiesPerCustomer,targetEL) {
+  this.storeName = storeName;
   this.minimumHourlyCustomers = minimumHourlyCustomers;
   this.maximumHourlyCustomers = maximumHourlyCustomers;
   this.averageCookiesPerCustomer = averageCookiesPerCustomer;
@@ -192,21 +193,16 @@ Store.prototype.tableRender = function() {
   //2.5 fill content
   // content for a row is a cell
   // do the full 3 step process for a cell
+
   // cell: 1. find parent... DONE, parent is 'var row'
   // cell: 2. make element
   var tableCell = document.createElement('td');
   // cell: 2.5 give it content
   // content for the cell is city name
-  tableCell.textContent = 'how print name of object?';   ////  <----------------------------- ????
-  // Trying to figure out how to print city names below:
-  // tableCell.textContent = this.Store;
-  // console.log(Store);
-  // console.log(this.Store);
-  // console.log(this);
-  // console.log(this.name);
-
+  tableCell.textContent = this.storeName;
   // cell: 3 append cell to parent which is the row
   row.appendChild(tableCell);
+
   // same parent row for all of the cells containing hourly sales data... so run a for loop to fill in all the data for this city. It needs to include steps 2, 2.5, and 3. For step 1, they all have the same parent... the row!
   for (var q = 0; q < hourBuckets.length; q++) {
     tableCell = document.createElement('td');
@@ -263,11 +259,70 @@ function makeTableHeader(arrayOfHours) {
   table.appendChild(row);
 }
 
+
+var arrayOfStoreObjects = [seattleObject, tokyoObject, dubaiObject, parisObject, limaObject];
+var totalHourlySalesAcrossLocations = [];
+var totalDailyCookieSalesForAllLocations = 0;
+
 function makeTableFooter() {
-  console.log('mystery for the future');
-  // will need for loops calling each city's hourly total and adding them together to create this total
-  // adding it to the table will be similar to the other rows
-  // this will be the last thing to be worked on
+  //1 identify the table element so we can add a footer to it
+  var table = document.getElementById('salesDataTable');
+  //2 create element
+  var row = document.createElement('tr');
+  //2.5 fill content
+  // content for a row is a cell
+  // do the full 3 step process for a cell
+  // cell: 1. find parent... DONE, parent is 'var row'
+  // cell: 2. make element
+  var tableCell = document.createElement('td');
+  // cell: 2.5 give it content
+  // content for the cell is the title for the Hourly Totals row
+  tableCell.textContent = 'Totals';
+  // cell: 3 append cell to parent which is the row
+  row.appendChild(tableCell);
+
+  // I had been getting back NaN for totals and could not figure out why!  Turns out it knew it was an array, but not a number, so the += operator was not working.  So I needed to prefill an array of the appropriate length with numbers.  I wanted to keep the function dynamic, so I added this array population loop.  I assume there is probably a better way then this.  All of the console logs within the inner loop were to solve this problem.
+  for (var z = 0; z < hourBuckets.length; z++) {
+    totalHourlySalesAcrossLocations[z] = 0;
+  }
+
+  // loops calling each city's hourly total
+  // same parent row for all of the cells containing total hourly sales data... so run a for loop to fill in all the data. It needs to include steps 2, 2.5, and 3. For step 1, they all have the same parent... the row!
+  for (var hourBucket = 0; hourBucket < hourBuckets.length; hourBucket++) {
+    for (var eachStore = 0; eachStore < arrayOfStoreObjects.length; eachStore++) {
+      // and adding them together to create this total
+
+      // console.log('***** ENTERING AN INNER LOOP ***** Hour Bucket then Store', hourBucket, eachStore);
+      // console.log('arrayOfStoreObjects[eachStore].hourlyCookieCount[hourBucket]: ', arrayOfStoreObjects[eachStore].hourlyCookieCount[hourBucket]);
+      // console.log('TYPEOFarrayOfStoreObjects[eachStore].hourlyCookieCount[hourBucket]: ', typeof(arrayOfStoreObjects[eachStore].hourlyCookieCount[hourBucket]));
+      // console.log('totalHourlySalesAcrossLocations[hourBucket]: ', totalHourlySalesAcrossLocations[hourBucket]);
+      // console.log('TYPEOFtotalHourlySalesAcrossLocations[hourBucket],', typeof(totalHourlySalesAcrossLocations[hourBucket]));
+      // console.log('MATH HAPPENS');
+
+      totalHourlySalesAcrossLocations[hourBucket] += arrayOfStoreObjects[eachStore].hourlyCookieCount[hourBucket];
+      totalDailyCookieSalesForAllLocations += arrayOfStoreObjects[eachStore].hourlyCookieCount[hourBucket];
+
+      // console.log('arrayOfStoreObjects[eachStore].hourlyCookieCount[hourBucket]: ', arrayOfStoreObjects[eachStore].hourlyCookieCount[hourBucket]);
+      // console.log('TYPEOFarrayOfStoreObjects[eachStore].hourlyCookieCount[hourBucket]: ', typeof(arrayOfStoreObjects[eachStore].hourlyCookieCount[hourBucket]));
+      // console.log('totalHourlySalesAcrossLocations[hourBucket]: ', totalHourlySalesAcrossLocations[hourBucket]);
+      // console.log('TYPEOFtotalHourlySalesAcrossLocations[hourBucket],', typeof(totalHourlySalesAcrossLocations[hourBucket]));
+      // console.log('***** END AN INNER LOOP *****');
+    }
+    // and adding it to the table is similar to the other rows
+    tableCell = document.createElement('td');
+    tableCell.textContent = totalHourlySalesAcrossLocations[hourBucket];
+    row.appendChild(tableCell);
+
+    // console.log('totalHourlySalesAcrossLocations[hourBucket]: ', totalHourlySalesAcrossLocations[hourBucket]);
+    // console.log('TYPEOFtotalHourlySalesAcrossLocations[hourBucket]: ', typeof(totalHourlySalesAcrossLocations[hourBucket]));
+  }
+  // and one more column for total of daily totals... the total total
+  tableCell = document.createElement('td');
+  tableCell.textContent = totalDailyCookieSalesForAllLocations;
+  row.appendChild(tableCell);
+  table.appendChild(row);
+
+  return totalHourlySalesAcrossLocations;
 }
 
 
@@ -289,7 +344,7 @@ dubaiObject.tableRender();
 parisObject.tableRender();
 limaObject.tableRender();
 
-makeTableFooter();
+totalHourlySalesAcrossLocations = makeTableFooter();
 
 
 //  *****  ISSUES TO RESOLVE  *****
