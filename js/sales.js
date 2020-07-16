@@ -124,20 +124,29 @@ Calculate Total Daily Sales by summing all hourly sales.
 var hourBuckets = ['6:00am','7:00am','8:00am','9:00am','10:00am','11:00am','12:00pm','1:00pm','2:00pm','3:00pm','4:00pm','5:00pm','6:00pm','7:00pm'];
 // Defining arrays to contain city given information
 // cityGivens = [minimumHourlyCustomers, maximumHourlyCustomers, averageCookiesPerCustomer]
-var seattleGivens = ['Seattle', 23, 65, 6.3, 'SeattleSales'];
-var tokyoGivens = ['Tokyo', 3, 24, 1.2, 'TokyoSales'];
-var dubaiGivens = ['Dubai', 11, 38, 3.7, 'DubaiSales'];
-var parisGivens = ['Paris', 20, 38, 2.3, 'ParisSales'];
-var limaGivens = ['Lima', 2, 16, 4.6, 'LimaSales'];
+var seattleGivens = ['Seattle', 23, 65, 6.3];
+var tokyoGivens = ['Tokyo', 3, 24, 1.2];
+var dubaiGivens = ['Dubai', 11, 38, 3.7];
+var parisGivens = ['Paris', 20, 38, 2.3];
+var limaGivens = ['Lima', 2, 16, 4.6];
+
+// When data had been shown as a list, the final position of the array was the HTML element ID target for each city's list
+// var seattleGivens = ['Seattle', 23, 65, 6.3, 'SeattleSales'];
+// var tokyoGivens = ['Tokyo', 3, 24, 1.2, 'TokyoSales'];
+// var dubaiGivens = ['Dubai', 11, 38, 3.7, 'DubaiSales'];
+// var parisGivens = ['Paris', 20, 38, 2.3, 'ParisSales'];
+// var limaGivens = ['Lima', 2, 16, 4.6, 'LimaSales'];
 
 //  *****  CONSTRUCTOR  *****
 // Constructor for creating objects of object type Store
-function Store(storeName, minimumHourlyCustomers, maximumHourlyCustomers, averageCookiesPerCustomer,targetEL) {
+function Store(storeName, minimumHourlyCustomers, maximumHourlyCustomers, averageCookiesPerCustomer) {
+  // targetEL had been a fifth input parameter to the constructor when data was displayed in a list.  I deleted it after moving to the table format.
   this.storeName = storeName;
   this.minimumHourlyCustomers = minimumHourlyCustomers;
   this.maximumHourlyCustomers = maximumHourlyCustomers;
   this.averageCookiesPerCustomer = averageCookiesPerCustomer;
-  this.targetEL = targetEL;
+  // the following property is no longer needed now that we render data in table instead of list
+  // this.targetEL = targetEL;
   this.hourlyCustomerCount = [];
   this.hourlyCookieCount = [];
   this.totalDailyCookieSales = 0;
@@ -158,24 +167,25 @@ function Store(storeName, minimumHourlyCustomers, maximumHourlyCustomers, averag
       this.totalDailyCookieSales += this.hourlyCookieCount[j];
     }
   };
-  this.printSalesData = function() {
-    for (var i = 0; i < hourBuckets.length; i++) {
-      var cityDisplayEL = document.getElementById(targetEL);
-      var linePrintEL = document.createElement('li');
-      linePrintEL.textContent = hourBuckets[i] + ': ' + this.hourlyCookieCount[i] + ' cookies';
-      cityDisplayEL.appendChild(linePrintEL);
-    }
-    cityDisplayEL = document.getElementById(targetEL);
-    linePrintEL = document.createElement('li');
-    linePrintEL.textContent = 'Total: ' + this.totalDailyCookieSales + ' cookies';
-    cityDisplayEL.appendChild(linePrintEL);
-  };
-  this.calculateAndRenderLocation = function() {
-    this.calcRandomCustomers();
-    this.calcHourlyCookieSales();
-    this.calcTotalDailyCount();
-    this.printSalesData();
-  };
+  // *** these two methods are no longer needed once we went from the list to the table format:
+  // this.printSalesData = function() {
+  //   for (var i = 0; i < hourBuckets.length; i++) {
+  //     var cityDisplayEL = document.getElementById(targetEL);
+  //     var linePrintEL = document.createElement('li');
+  //     linePrintEL.textContent = hourBuckets[i] + ': ' + this.hourlyCookieCount[i] + ' cookies';
+  //     cityDisplayEL.appendChild(linePrintEL);
+  //   }
+  //   cityDisplayEL = document.getElementById(targetEL);
+  //   linePrintEL = document.createElement('li');
+  //   linePrintEL.textContent = 'Total: ' + this.totalDailyCookieSales + ' cookies';
+  //   cityDisplayEL.appendChild(linePrintEL);
+  // };
+  // this.calculateAndRenderLocation = function() {
+  //   this.calcRandomCustomers();
+  //   this.calcHourlyCookieSales();
+  //   this.calcTotalDailyCount();
+  //   this.printSalesData();
+  // };
 }
 
 //  *****  USE PROTOTYPE FUNCTION OF OBJECTS TO ADD A TABLE RENDERING FUNCTION  *****
