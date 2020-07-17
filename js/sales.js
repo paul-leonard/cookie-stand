@@ -401,7 +401,7 @@ function generateExpStore(event) {
 }
 
 // var newStoreFormEL = document.getElementById('addExpansionStoreForm');
-//had too much confusion here for too long due to chrome not updating form names from the 'add-expansion-store' to addExpansionStoreForm.... so I changed it back.
+//had too much confusion here for too long due to chrome not updating form names from the 'add-expansion-store' to addExpansionStoreForm.... so I changed it back.  Thanks to TA Andrew for diving into the chrome inspect tool and finding the id and realizing it did not match!
 var newStoreFormEL = document.getElementById('add-expansion-store');
 
 // console.log(newStoreFormEL);
