@@ -51,16 +51,16 @@
           <legend>Add Expansion Store Data</legend>
             
             <label for="expStoreName">New Store Name:</label>
-            <input type="text" name="expStoreName" placeholder="enter store name"></input>
+            <input type="text" name="expStoreName" placeholder="enter store name" required minlength="2"></input>
 
             <label for="expStoreMin">Minimum Hourly Customers:</label>
-            <input type="number" name="expStoreMin" placeholder="minimum expected customers per hour"></input>
+            <input type="number" name="expStoreMin" placeholder="minimum expected customers per hour" required min="0"></input>
 
             <label for="expStoreMax">Maximum Hourly Customers:</label>
-            <input type="number" name="expStoreMax" placeholder="maximum expected customers per hour"></input>
+            <input type="number" name="expStoreMax" placeholder="maximum expected customers per hour" required></input>
 
             <label for="expStoreAverage">Average Cookies per Customer:</label>
-            <input type="number" name="expStoreAverage" placeholder="average expected cookies per customer"></input>
+            <input type="number" name="expStoreAverage" placeholder="average expected cookies per customer" required></input>
 
             <input type="submit" value="Add Store" id="submit">
 
