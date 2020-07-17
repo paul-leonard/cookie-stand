@@ -272,9 +272,9 @@ function makeTableHeader(arrayOfHours) {
 
 var arrayOfStoreObjects = [seattleObject, tokyoObject, dubaiObject, parisObject, limaObject];
 var totalHourlySalesAcrossLocations = [];
-var totalDailyCookieSalesForAllLocations = 0;
 
 function makeTableFooter() {
+  var totalDailyCookieSalesForAllLocations = 0;
   //1 identify the table element so we can add a footer to it
   var table = document.getElementById('salesDataTable');
   //2 create element
@@ -291,7 +291,6 @@ function makeTableFooter() {
   // cell: 3 append cell to parent which is the row
   row.appendChild(tableCell);
 
-  // I had been getting back NaN for totals and could not figure out why!  Turns out it knew it was an array, but not a number, so the += operator was not working.  So I needed to prefill an array of the appropriate length with numbers.  I wanted to keep the function dynamic, so I added this array population loop.  I assume there is probably a better way then this.  All of the console logs within the inner loop were to solve this problem.
   for (var z = 0; z < hourBuckets.length; z++) {
     totalHourlySalesAcrossLocations[z] = 0;
   }
@@ -301,30 +300,13 @@ function makeTableFooter() {
   for (var hourBucket = 0; hourBucket < hourBuckets.length; hourBucket++) {
     for (var eachStore = 0; eachStore < arrayOfStoreObjects.length; eachStore++) {
       // and adding them together to create this total
-
-      // console.log('***** ENTERING AN INNER LOOP ***** Hour Bucket then Store', hourBucket, eachStore);
-      // console.log('arrayOfStoreObjects[eachStore].hourlyCookieCount[hourBucket]: ', arrayOfStoreObjects[eachStore].hourlyCookieCount[hourBucket]);
-      // console.log('TYPEOFarrayOfStoreObjects[eachStore].hourlyCookieCount[hourBucket]: ', typeof(arrayOfStoreObjects[eachStore].hourlyCookieCount[hourBucket]));
-      // console.log('totalHourlySalesAcrossLocations[hourBucket]: ', totalHourlySalesAcrossLocations[hourBucket]);
-      // console.log('TYPEOFtotalHourlySalesAcrossLocations[hourBucket],', typeof(totalHourlySalesAcrossLocations[hourBucket]));
-      // console.log('MATH HAPPENS');
-
       totalHourlySalesAcrossLocations[hourBucket] += arrayOfStoreObjects[eachStore].hourlyCookieCount[hourBucket];
       totalDailyCookieSalesForAllLocations += arrayOfStoreObjects[eachStore].hourlyCookieCount[hourBucket];
-
-      // console.log('arrayOfStoreObjects[eachStore].hourlyCookieCount[hourBucket]: ', arrayOfStoreObjects[eachStore].hourlyCookieCount[hourBucket]);
-      // console.log('TYPEOFarrayOfStoreObjects[eachStore].hourlyCookieCount[hourBucket]: ', typeof(arrayOfStoreObjects[eachStore].hourlyCookieCount[hourBucket]));
-      // console.log('totalHourlySalesAcrossLocations[hourBucket]: ', totalHourlySalesAcrossLocations[hourBucket]);
-      // console.log('TYPEOFtotalHourlySalesAcrossLocations[hourBucket],', typeof(totalHourlySalesAcrossLocations[hourBucket]));
-      // console.log('***** END AN INNER LOOP *****');
     }
     // and adding it to the table is similar to the other rows
     tableCell = document.createElement('td');
     tableCell.textContent = totalHourlySalesAcrossLocations[hourBucket];
     row.appendChild(tableCell);
-
-    // console.log('totalHourlySalesAcrossLocations[hourBucket]: ', totalHourlySalesAcrossLocations[hourBucket]);
-    // console.log('TYPEOFtotalHourlySalesAcrossLocations[hourBucket]: ', typeof(totalHourlySalesAcrossLocations[hourBucket]));
   }
   // and one more column for total of daily totals... the total total
   tableCell = document.createElement('td');
@@ -357,6 +339,75 @@ limaObject.tableRender();
 totalHourlySalesAcrossLocations = makeTableFooter();
 
 
-//  *****  ISSUES TO RESOLVE  *****
-// 1. Print city names in first column.
-// 2. Calculate totals for the hourly buckets across cities and add the totals as a row to bottom of table.
+//  *********** Lab09 *******************
+
+// Declare function to run when new form is submitted.  It will do steps 2-8:
+// Steps from class:
+// 1. make a form
+// 2. make an input for each parameter for the constructor (with a name attribute)
+// 3. add the callback to the form with addEvent Listener
+// 4. callback definition 
+// 5. preventDefault
+// 6. get the conetn of the inputs
+// //target the form, target the name of the input, get the value
+// //event.target.<input name><div class="value">
+// 7. pass them to the constructor to make a new object
+// 8. render the new stuff using the new object (a row of the store)
+
+//Declaring callback function
+function generateExpStore(event) {
+  // prevent page from refreshing on form submission
+  event.preventDefault();
+
+  // console.log('we see the button clicked');
+  // console.log(event);
+  // console.log(typeof(event));
+
+  // declare new variables and get values from event object
+  var incomingStoreName = event.target.expStoreName.value;
+  var incomingStoreMin = event.target.expStoreMin.value;
+  var incomingStoreMax = event.target.expStoreMax.value;
+  var incomingStoreAverage = event.target.expStoreAverage.value;
+
+  // console.log(incomingStoreMin);
+  // console.log(incomingStoreMax);
+  // console.log(incomingStoreAverage);
+  // console.log(incomingStoreName);
+
+  // call constructor to build a new store object for the expansion store.
+  // below includes 'var newStore = ' for understanding, but in actuality, that is not needed and can be dropped because we will never use the variable name again.
+  var newStore = new Store(incomingStoreName,incomingStoreMin,incomingStoreMax, incomingStoreAverage);
+
+  //add this new store to my array of store objects
+  arrayOfStoreObjects.push(newStore);
+
+  // console.log(arrayOfStoreObjects);
+
+  //delete current last row of table which is currently the totals
+  document.getElementById('salesDataTable').deleteRow(-1);
+  // Thanks to the clear article on TechBrood at https://techbrood.com/en/jsref?p=met-table-deleterow
+
+  //Add new store to table at bottom row
+  newStore.tableRender();
+
+  //call footer function again to make new total row
+  //it will include new store in totals, because new store is part of the array of store objects now.
+  makeTableFooter();
+
+  // figure out how to delete that old total row
+
+
+
+}
+
+// var newStoreFormEL = document.getElementById('addExpansionStoreForm');
+//had too much confusion here for too long due to chrome not updating form names from the 'add-expansion-store' to addExpansionStoreForm.... so I changed it back.
+var newStoreFormEL = document.getElementById('add-expansion-store');
+
+// console.log(newStoreFormEL);
+// console.log(newStoreFormEL);
+
+//Adding listener for the event of submitting the form which will then call the callback function 
+newStoreFormEL.addEventListener('submit', generateExpStore);
+
+

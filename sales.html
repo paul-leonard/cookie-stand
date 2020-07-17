@@ -44,12 +44,26 @@
       7. pass them to the constructor to make a new object
       8. render the new stuff using the new object (a row of the store)
       
-      1) Here in HTML -->
+      1) Here in HTML:   Create new form -->
 
       <form id="add-expansion-store">
         <fieldset>
           <legend>Add Expansion Store Data</legend>
             
+            <label for="expStoreName">New Store Name:</label>
+            <input type="text" name="expStoreName" placeholder="enter store name"></input>
+
+            <label for="expStoreMin">Minimum Hourly Customers:</label>
+            <input type="number" name="expStoreMin" placeholder="minimum expected customers per hour"></input>
+
+            <label for="expStoreMax">Maximum Hourly Customers:</label>
+            <input type="number" name="expStoreMax" placeholder="maximum expected customers per hour"></input>
+
+            <label for="expStoreAverage">Average Cookies per Customer:</label>
+            <input type="number" name="expStoreAverage" placeholder="average expected cookies per customer"></input>
+
+            <input type="submit" value="Add Store" id="submit">
+
         </fieldset>
       </form>
 
