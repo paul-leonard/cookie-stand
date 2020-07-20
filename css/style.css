@@ -1,12 +1,121 @@
 * {
   background-color: antiquewhite;
+  /* outline: dashed 3px orange; */
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  color: rgb(75, 75, 9);
 }
 
-h1, h2 {
+.storedata, ul>ul, .storedata>li {
+  font-family: Verdana, Geneva, Tahoma, sans-serif, Helvetica, sans-serif;
+  float: left;
+  width: 50px;
+  display: block;
+}
+
+#salesDataTable {
+  font-family: Verdana, Geneva, Tahoma, sans-serif, Helvetica, sans-serif;
+}
+
+td, th {
+  background-color: lightblue;
+}
+
+h1, h2, h3 {
   text-align: center;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  color: rgb(117, 23, 23);
+  margin-top: 40px;
+}
+
+h1 {
+  font-size: xxx-large;
+}
+
+h2 {
+  font-size: x-large;
+}
+
+h3 {
+  font-size: large;
+}
+
+h5 {
+  font-weight: bold;
+  text-decoration: underline;
+  text-align: center;
+  margin-top: 45px;
 }
 
 table, td, th {
   border: solid black 1px;
   border-collapse: collapse;
+}
+
+#handwritten {
+  font-family: 'Beth Ellen', cursive;
+  font-size: larger;
+  color: rgb(28, 28, 129);
+  text-align: center;
+}
+
+.nobullets {
+  list-style: none;
+}
+
+.centered {
+  margin: 0px auto;
+  display: block;
+}
+
+nav>ul>li {
+  float: left;
+  width: 180px;
+  padding-left: 50px;
+}
+
+#thetastetext {
+  width: 465px;
+  float: left;
+  margin: 5px 30px 30px 100px;
+}
+
+.overflow {
+  overflow: hidden;
+}
+
+#actualcookie {
+  height: 230px;
+}
+
+.storeitem {
+  display: block;
+  float: left;
+  width: 250px;
+  margin: 30px;
+}
+
+.pagewidth {
+  width: 960px;
+}
+
+li {
+  list-style: none;
+}
+
+.storeinfoblock {
+  /* text-decoration: underline; */
+  width: 200px;
+  display: block;
+  float: left;
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+footer {
+  margin-top: 330px;
+  margin-bottom: 50px;
+}
+
+nav {
+  margin-bottom: 80px;
 }
